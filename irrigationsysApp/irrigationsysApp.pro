@@ -24,5 +24,5 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui
 
 addFiles.sources =data.db3
-addFiles.path = .
+addFiles.path = /home/qasem/outapp/irrigationsystem/build-irrigationsysApp-desktoplinux4-Debug/
 DEPLOYMENT += addFiles

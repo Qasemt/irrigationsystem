@@ -3,31 +3,8 @@
 DataHelper::DataHelper(QObject *parent) :
     QObject(parent)
 {
-    /*
-     *Check the existence of the database driver.
-     */
-    if (!QSqlDatabase::isDriverAvailable (dbDriverStr))
-    {
-        /*
-        *Gui message that informs that the driver does not exist
-        */
-        qDebug()<<dbConnectErrorStr + " " + dbDriverNotExistStr ;
-        exit(1);
-    }
-
-    /*
-   *Connect to the database with the following driver.
-   */
-    db = QSqlDatabase::addDatabase(dbDriverStr);
-
-    bool flag = isDbExist ();
-    db.setDatabaseName(dbPathStr +dbFileNameStr);
     dbConnect();
-    qDebug()<<"intiliz Database "+getdb().databaseName();
-    if (!flag)
-    {
-        dbCreateInstance();
-    }
+
 }
 
 
@@ -66,25 +43,45 @@ int DataHelper::RowCounter(QSqlQuery query)
  */
 bool DataHelper::dbConnect()
 {
-    /*
-    *Open database, if the database cannot open for
-    *any reason print a warning.
-    */
-    if (!db.open())
+    if(isConnected())
     {
-        /*
-         *Gui message that informs that the database cannot open
-         */
-       qDebug()<<dbConnectErrorStr + dbCannotOpenStr+ " " +dbFileNameStr;
-        /*
-         *@return false if database connection failed.
-         */
-        return false;
+        qDebug()<<"already Opened";
+        return true;
     }
 
     /*
-     *@return true if database connection successed
+     *Check the existence of the database driver.
      */
+    if (!QSqlDatabase::isDriverAvailable (dbDriverStr))
+    {
+        /*
+        *Gui message that informs that the driver does not exist
+        */
+        qDebug()<<dbConnectErrorStr + " " + dbDriverNotExistStr ;
+        exit(1);
+    }
+
+    /*
+   *Connect to the database with the following driver.
+   */
+    db = QSqlDatabase::addDatabase(dbDriverStr);
+
+
+    bool flag = isDbExist ();
+    db.setDatabaseName(dbPathStr +dbFileNameStr);
+    qDebug()<<"intiliz Database "+getdb().databaseName();
+    if (!db.open())
+    {
+        qDebug()<<dbConnectErrorStr + dbCannotOpenStr+ " " +dbFileNameStr;
+        return false;
+    }
+
+
+    qDebug()<< "Open Database ";
+    if (!flag)
+    {
+        dbCreateInstance();
+    }
     return db.isOpen();
 }
 
@@ -93,24 +90,23 @@ bool DataHelper::dbConnect()
  */
 bool DataHelper::dbDisconnect()
 {
-    /*
-     *close database
-     */
-    db.close();
-    if(!db.isOpen())
+    if(isConnected()==false)
     {
-        /*
-         *@return true if database closed
-        */
+        qDebug()<<"already Closed";
         return true;
     }
+
+    QString connection;
+    connection=db.connectionName();
+    db.close();
+    db = QSqlDatabase();
+    QSqlDatabase::removeDatabase(connection);
+    qDebug()<<"close database";
+
+    if(!db.isOpen())
+        return true;
     else
-    {
-        /*
-         *@return false if not closed
-         */
         return false;
-    }
 }
 
 /*

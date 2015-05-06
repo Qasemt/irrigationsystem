@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <gsmreader.h>
+#include <datahelper.h>
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +25,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     GsmReader *_GsmReader;
+  // DataHelper *_DataHelper;
 
 
 };

@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -25,16 +25,16 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPushButton" name="btnClose">
+      <widget class="QPushButton" name="btnOpen">
        <property name="text">
-        <string>Close</string>
+        <string>Open</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btnOpen">
+      <widget class="QPushButton" name="btnClose">
        <property name="text">
-        <string>Open</string>
+        <string>Close</string>
        </property>
       </widget>
      </item>

@@ -12,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->move( screen.center() - this->rect().center() );
     _GsmReader = new GsmReader();
+
+ DataHelper::getInstance();
 }
 
 MainWindow::~MainWindow()
@@ -21,10 +23,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btnOpen_clicked()
 {
-    _GsmReader->Open();
+    //_GsmReader->Open();
+
+     DataHelper::getInstance()->dbConnect();
 }
 
 void MainWindow::on_btnClose_clicked()
 {
-
+ DataHelper::getInstance()->dbDisconnect();
 }
