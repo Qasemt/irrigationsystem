@@ -15,13 +15,20 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     gsmreader.cpp \
-    datahelper.cpp
+    datahelper.cpp \
+    modelsystemparameter.cpp \
+    bssystemparameter.cpp \
+    frmdbtest.cpp
 
 HEADERS  += mainwindow.h \
     gsmreader.h \
-    datahelper.h
+    datahelper.h \
+    modelsystemparameter.h \
+    bssystemparameter.h \
+    frmdbtest.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    frmdbtest.ui
 
 addFiles.sources =data.db3
 addFiles.path = /home/qasem/outapp/irrigationsystem/build-irrigationsysApp-desktoplinux4-Debug/

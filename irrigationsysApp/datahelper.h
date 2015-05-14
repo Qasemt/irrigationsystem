@@ -15,7 +15,8 @@
  */
 static const QString dbDriverStr = "QSQLITE";
 static const QString dbFileNameStr = "data.db3";
-static const QString dbPathStr = "/home/qasem/devtools/irrigationsystem/irrigationsysApp/";
+//static const QString dbPathStr = "/home/qasem/devtools/irrigationsystem/irrigationsysApp/";
+static const QString dbPathStr = "/home/qasem/gitsrc/irrigationsystem/irrigationsysApp/";
 static const int PBAR_MAX_STEPS =7;
 
 /*
