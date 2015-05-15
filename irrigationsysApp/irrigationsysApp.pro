@@ -8,6 +8,7 @@ QT       += core gui extserialport sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG += extserialport
+
 TARGET = irrigationsysApp
 TEMPLATE = app
 
@@ -18,14 +19,20 @@ SOURCES += main.cpp\
     datahelper.cpp \
     modelsystemparameter.cpp \
     bssystemparameter.cpp \
-    frmdbtest.cpp
+    frmdbtest.cpp \
+    modeldailytime.cpp \
+    bsmodeldailytime.cpp \
+    basebusiness.cpp
 
 HEADERS  += mainwindow.h \
     gsmreader.h \
     datahelper.h \
     modelsystemparameter.h \
     bssystemparameter.h \
-    frmdbtest.h
+    frmdbtest.h \
+    modeldailytime.h \
+    bsmodeldailytime.h \
+    basebusiness.h
 
 FORMS    += mainwindow.ui \
     frmdbtest.ui

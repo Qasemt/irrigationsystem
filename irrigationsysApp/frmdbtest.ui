@@ -13,18 +13,38 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="btnGetParams">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
      <x>110</x>
      <y>30</y>
-     <width>99</width>
-     <height>27</height>
+     <width>140</width>
+     <height>95</height>
     </rect>
    </property>
-   <property name="text">
-    <string>get param</string>
-   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QPushButton" name="btnGetParams">
+      <property name="text">
+       <string>get param</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnDailyTime1">
+      <property name="text">
+       <string>Daily time</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnDailyTimeupdate">
+      <property name="text">
+       <string>Daily time update</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

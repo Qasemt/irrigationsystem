@@ -45,7 +45,7 @@ bool DataHelper::dbConnect()
 {
     if(isConnected())
     {
-        qDebug()<<"already Opened";
+        qDebug()<<"DB Context already Opened";
         return true;
     }
 
@@ -92,7 +92,7 @@ bool DataHelper::dbDisconnect()
 {
     if(isConnected()==false)
     {
-        qDebug()<<"already Closed";
+        qDebug()<<"DB Context already Closed";
         return true;
     }
 

@@ -7,6 +7,8 @@
 #include <qvariant.h>
 #include <QList>
 #include <datahelper.h>
+#include <QSqlRecord>
+#include <QDebug>
 
 
 class Bssystemparameter
@@ -17,14 +19,8 @@ public:
         pk_apn=1,
         pk_serverip=2,
         pk_serverport=3,
-        pk_gprsportname=4,
-        pk_gpsportname=5,
-        pk_busnumber=6,
-        pk_driverpersonnelnumber=7,
-        pk_vtlcode=8,
-        pk_mainlinecode=9,
-        pk_CardReaderPortName=10,
-        pk_gispath=11
+
+
     };
     Bssystemparameter();
 
@@ -33,8 +29,8 @@ public:
 
 
     QList<ModelSystemParameter> FillData();
-    bool UpdateParam(int key,QString title,QString value);
-    bool InsertParam(int key,QString title,QString value);
+    bool Update(int key,QString title,QString value);
+    bool Insert(int key,QString title,QString value);
 
 };
 

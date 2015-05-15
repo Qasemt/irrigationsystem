@@ -1,7 +1,5 @@
 #include "bssystemparameter.h"
-#include <QSqlRecord>
-#include <QDebug>
-#include <exception>
+
 Bssystemparameter::Bssystemparameter()
 {
 }
@@ -79,7 +77,7 @@ QList<ModelSystemParameter> Bssystemparameter::FillData()
 
 }
 
-bool Bssystemparameter::UpdateParam(int key, QString title, QString value)
+bool Bssystemparameter::Update(int key, QString title, QString value)
 {
     if(title.isEmpty() || value.isEmpty()) return false;
 
@@ -117,7 +115,7 @@ bool Bssystemparameter::UpdateParam(int key, QString title, QString value)
     return result;
 }
 
-bool Bssystemparameter::InsertParam(int key, QString title, QString value)
+bool Bssystemparameter::Insert(int key, QString title, QString value)
 {
     if(key<=0) return false;
 

@@ -18,7 +18,9 @@ public:
 
 private slots:
     void on_btnGetParams_clicked();
+    void on_btnDailyTime1_clicked();
 
+    void on_btnDailyTimeupdate_clicked();
 
 private:
     Ui::FrmDBTest *ui;
