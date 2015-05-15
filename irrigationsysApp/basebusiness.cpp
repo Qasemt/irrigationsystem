@@ -187,3 +187,27 @@ bool baseBusiness::RemovebyId(int id)
     return result;
 }
 
+bool baseBusiness::Removebywhere(QString whereparams)
+{
+    QSqlQuery   query;
+    DataHelper::lock.lockForRead();
+    bool result=false;
+    try{
+
+        if(DataHelper::getInstance()->dbConnect())
+        {
+            query = QSqlQuery(DataHelper::getInstance()->getdb());
+            QString str= "delete from "+_TableName + "where "+whereparams;
+            result=  query.exec(str);
+        }
+    }
+    catch(...)
+    {
+        qDebug()<<"ERROR";
+    }
+
+    DataHelper::lock.unlock();
+
+    return result;
+}
+

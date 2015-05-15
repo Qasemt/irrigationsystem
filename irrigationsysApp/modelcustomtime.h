@@ -1,22 +1,27 @@
-#ifndef MODELDAILYTIME_H
-#define MODELDAILYTIME_H
+#ifndef MODELCUSTOMTIME_H
+#define MODELCUSTOMTIME_H
 #include <QDateTime>
-class ModelDailyTime
+
+class ModelCustomTime
 {
-public:
-    ModelDailyTime();
+private:
     int _id;
-    int _devicecode;
+    int _devicecode    ;
+    int _dayindex;
     QDateTime _starttime;
     QDateTime _enddate;
     int _durationofsecond;
     int _durationofminute;
     bool _smsalert;
 
+public:
+     ModelCustomTime();
     int id() const;
     void setId(int id);
     int devicecode() const;
     void setDevicecode(int devicecode);
+    int dayindex() const;
+    void setDayindex(int dayindex);
     QDateTime starttime() const;
     void setStarttime(const QDateTime &starttime);
     QDateTime enddate() const;
@@ -29,4 +34,4 @@ public:
     void setSmsalert(bool smsalert);
 };
 
-#endif // MODELDAILYTIME_H
+#endif // MODELCUSTOMTIME_H

@@ -4,15 +4,17 @@
 
 class ModelSystemParameter
 {
+private:
+    int pkey    ;
+    QString pkeytitle;
+    QString pvalue;
 public:
     ModelSystemParameter():pkey(0),pkeytitle(""),pvalue("")
     {
 
     }
 
-    int pkey    ;
-    QString pkeytitle;
-    QString pvalue;
+
 
     int getPkey() const;
     void setPkey(int value);

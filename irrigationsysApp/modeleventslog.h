@@ -1,22 +1,29 @@
-#ifndef MODELDAILYTIME_H
-#define MODELDAILYTIME_H
+#ifndef MODELEVENTSLOG_H
+#define MODELEVENTSLOG_H
+
 #include <QDateTime>
-class ModelDailyTime
+
+class ModelEventsLog
 {
-public:
-    ModelDailyTime();
+private:
     int _id;
-    int _devicecode;
+    int _devicecode    ;
+    int  _schedulemode;
     QDateTime _starttime;
     QDateTime _enddate;
     int _durationofsecond;
     int _durationofminute;
-    bool _smsalert;
+    QString  _mobilenumber ;
+    int _transferstatus;
 
+public:
+    ModelEventsLog();
     int id() const;
     void setId(int id);
     int devicecode() const;
     void setDevicecode(int devicecode);
+    int schedulemode() const;
+    void setSchedulemode(int schedulemode);
     QDateTime starttime() const;
     void setStarttime(const QDateTime &starttime);
     QDateTime enddate() const;
@@ -25,8 +32,10 @@ public:
     void setDurationofsecond(int durationofsecond);
     int durationofminute() const;
     void setDurationofminute(int durationofminute);
-    bool smsalert() const;
-    void setSmsalert(bool smsalert);
+    QString mobilenumber() const;
+    void setMobilenumber(const QString &mobilenumber);
+    int transferstatus() const;
+    void setTransferstatus(int transferstatus);
 };
 
-#endif // MODELDAILYTIME_H
+#endif // MODELEVENTSLOG_H

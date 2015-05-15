@@ -22,7 +22,17 @@ SOURCES += main.cpp\
     frmdbtest.cpp \
     modeldailytime.cpp \
     bsmodeldailytime.cpp \
-    basebusiness.cpp
+    basebusiness.cpp \
+    modelcustomtime.cpp \
+    modeldeviceinfo.cpp \
+    modeleventslog.cpp \
+    modelmanualtime.cpp \
+    modelweeklytime.cpp \
+    bsweeklytime.cpp \
+    bsmanualtime.cpp \
+    bsdeviceinfo.cpp \
+    bscustomtime.cpp \
+    bseventslog.cpp
 
 HEADERS  += mainwindow.h \
     gsmreader.h \
@@ -32,7 +42,17 @@ HEADERS  += mainwindow.h \
     frmdbtest.h \
     modeldailytime.h \
     bsmodeldailytime.h \
-    basebusiness.h
+    basebusiness.h \
+    modelcustomtime.h \
+    modeldeviceinfo.h \
+    modeleventslog.h \
+    modelmanualtime.h \
+    modelweeklytime.h \
+    bsweeklytime.h \
+    bsmanualtime.h \
+    bsdeviceinfo.h \
+    bscustomtime.h \
+    bseventslog.h
 
 FORMS    += mainwindow.ui \
     frmdbtest.ui

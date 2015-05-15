@@ -1,18 +1,20 @@
-#ifndef MODELDAILYTIME_H
-#define MODELDAILYTIME_H
+#ifndef MODELMANUALTIME_H
+#define MODELMANUALTIME_H
+
 #include <QDateTime>
-class ModelDailyTime
+
+class ModelManualTime
 {
-public:
-    ModelDailyTime();
+private:
     int _id;
-    int _devicecode;
+    int _devicecode    ;
     QDateTime _starttime;
     QDateTime _enddate;
     int _durationofsecond;
     int _durationofminute;
     bool _smsalert;
-
+public:
+    ModelManualTime();
     int id() const;
     void setId(int id);
     int devicecode() const;
@@ -29,4 +31,4 @@ public:
     void setSmsalert(bool smsalert);
 };
 
-#endif // MODELDAILYTIME_H
+#endif // MODELMANUALTIME_H

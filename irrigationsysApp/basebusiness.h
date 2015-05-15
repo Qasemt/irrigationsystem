@@ -18,6 +18,8 @@ public:
     bool RemoveAll ();
     bool RemovebyId (int id);
 
+    bool Removebywhere (QString whereparams);
+
 };
 
 #endif // BASEBUSINESS_H
