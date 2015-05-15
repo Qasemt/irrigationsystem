@@ -12,7 +12,7 @@ class baseBusiness
 public:
     baseBusiness();
     QString _TableName;
-    QSqlQuery FillData();
+    QSqlQuery FillData(QString fields="",QString whereparam="");
     bool Update(QMap<QString,QVariant> params,QString whereparams);
     bool Insert(QMap<QString,QVariant> params);
     bool RemoveAll ();
@@ -20,6 +20,14 @@ public:
 
     bool Removebywhere (QString whereparams);
 
+    int numberOfRecords(QSqlQuery q)
+    {
+        int cnt=0;
+        while (q.next()) {
+            cnt++;
+        }
+        return cnt;
+    }
 };
 
 #endif // BASEBUSINESS_H

@@ -4,7 +4,10 @@
 #include <QMainWindow>
 #include <gsmreader.h>
 #include <datahelper.h>
-
+#include <QTimer>
+#include <bsdeviceinfo.h>
+#include <frmcmdtest.h>
+#include <messagewatcher.h>
 namespace Ui {
 class MainWindow;
 }
@@ -19,13 +22,20 @@ public:
 
 private slots:
     void on_btnOpen_clicked();
-
     void on_btnClose_clicked();
-
+    void timeoutMaintimer();
+    void on_btnfrmCMDtest_clicked();
+    void onMessageCMDReceived(QString  cmdMessage);
 private:
     Ui::MainWindow *ui;
     GsmReader *_GsmReader;
-  // DataHelper *_DataHelper;
+    // DataHelper *_DataHelper;
+    QTimer *_maintimer;
+    void loaddata();
+    BsDeviceinfo _bsDeviceinfo;
+    QSqlQueryModel *_records;
+    FrmCMDTest _frmCMDTest;
+
 
 
 };

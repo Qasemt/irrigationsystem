@@ -32,7 +32,9 @@ SOURCES += main.cpp\
     bsmanualtime.cpp \
     bsdeviceinfo.cpp \
     bscustomtime.cpp \
-    bseventslog.cpp
+    bseventslog.cpp \
+    frmcmdtest.cpp \
+    messagewatcher.cpp
 
 HEADERS  += mainwindow.h \
     gsmreader.h \
@@ -52,10 +54,13 @@ HEADERS  += mainwindow.h \
     bsmanualtime.h \
     bsdeviceinfo.h \
     bscustomtime.h \
-    bseventslog.h
+    bseventslog.h \
+    frmcmdtest.h \
+    messagewatcher.h
 
 FORMS    += mainwindow.ui \
-    frmdbtest.ui
+    frmdbtest.ui \
+    frmcmdtest.ui
 
 addFiles.sources =data.db3
 addFiles.path = /home/qasem/outapp/irrigationsystem/build-irrigationsysApp-desktoplinux4-Debug/

@@ -5,7 +5,7 @@ baseBusiness::baseBusiness()
 
 }
 
-QSqlQuery baseBusiness::FillData()
+QSqlQuery baseBusiness::FillData(QString fields, QString whereparam)
 {
     QSqlQuery   query;
     DataHelper::lock.lockForRead();
@@ -15,7 +15,12 @@ QSqlQuery baseBusiness::FillData()
         if(DataHelper::getInstance()->dbConnect())
         {
             query = QSqlQuery(DataHelper::getInstance()->getdb());
-            QString str= "select * from "+_TableName;
+            if(fields.length()==0)
+                fields ="*";
+            if(whereparam.length()>0)
+                whereparam = " where "+whereparam;
+
+            QString str= "select "+fields+" from "+_TableName + whereparam;
 
             query.exec(str);
         }
@@ -28,6 +33,8 @@ QSqlQuery baseBusiness::FillData()
 
     return query;
 }
+
+
 
 bool baseBusiness::Update( QMap<QString, QVariant> params, QString whereparams)
 {

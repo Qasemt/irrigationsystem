@@ -2,7 +2,7 @@
 
 BsDeviceinfo::BsDeviceinfo()
 {
-
+    _TableName="deviceinfo";
 }
 
 ModelDeviceinfo BsDeviceinfo::fromSqlQuery(QSqlQuery query)
@@ -27,6 +27,13 @@ QList<ModelDeviceinfo> BsDeviceinfo::FillData()
         tmplist.append(md);
     }
     return tmplist;
+}
+
+QSqlQuery BsDeviceinfo::FillDatasqlmodel()
+{
+    QSqlQuery query =baseBusiness::FillData();
+    qDebug()<<"cnt" <<baseBusiness::numberOfRecords(query)<<endl;
+    return query;
 }
 
 bool BsDeviceinfo::Update(ModelDeviceinfo value)
@@ -56,7 +63,7 @@ bool BsDeviceinfo::Insert(ModelDeviceinfo value)
 
 bool BsDeviceinfo::RemoveAll()
 {
-  return  baseBusiness::RemoveAll();
+    return  baseBusiness::RemoveAll();
 }
 
 bool BsDeviceinfo::Removebycode(int code)
