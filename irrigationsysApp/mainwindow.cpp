@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     const QRect screen = QApplication::desktop()->screenGeometry();
 
     this->move( screen.center() - this->rect().center() );
+    //this->setWindowFlags(Qt::Window | Qt::Dialog);
     _GsmReader = new GsmReader();
 
     DataHelper::getInstance();

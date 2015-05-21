@@ -18,6 +18,12 @@ public:
 private slots:
     void on_btnChangeSchMode_clicked();
 
+    void on_btnDeviceEnable_clicked();
+
+    void on_btndialyTime_clicked();
+
+    void on_btnweeklytime_clicked();
+
 private:
     Ui::FrmCMDTest *ui;
 };
