@@ -19,7 +19,7 @@
      <x>10</x>
      <y>10</y>
      <width>238</width>
-     <height>163</height>
+     <height>196</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -69,9 +69,16 @@
       </property>
      </widget>
     </item>
+    <item>
+     <widget class="QPushButton" name="btnCMDcustomtime">
+      <property name="text">
+       <string>Custom time</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>262</x>
@@ -100,7 +107,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>261</x>

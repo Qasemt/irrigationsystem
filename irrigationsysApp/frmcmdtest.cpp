@@ -51,11 +51,16 @@ void FrmCMDTest::on_btnDeviceEnable_clicked()
 
 void FrmCMDTest::on_btndialyTime_clicked()
 {
-     MessageWatcher::GetInstance()->FireMessageCMDReceived(QString("$cmd$3@1,10:12,33m,1@").arg(ui->txtdeviceinfo->text()));
+     MessageWatcher::GetInstance()->FireMessageCMDReceived(QString("$cmd$3@%1,10:12,33m,1@").arg(ui->txtdeviceinfo->text()));
 }
 
 void FrmCMDTest::on_btnweeklytime_clicked()
 {
-    MessageWatcher::GetInstance()->FireMessageCMDReceived(QString("$cmd$4@1,7,10:12,33m,1@").arg(ui->txtdeviceinfo->text()));
+    MessageWatcher::GetInstance()->FireMessageCMDReceived(QString("$cmd$4@%1,7,10:12,33m,1@").arg(ui->txtdeviceinfo->text()));
 }
 
+
+void FrmCMDTest::on_btnCMDcustomtime_clicked()
+{
+    MessageWatcher::GetInstance()->FireMessageCMDReceived(QString("$cmd$5@%1,930402,10:12,33m,1@").arg(ui->txtdeviceinfo->text()));
+}

@@ -24,6 +24,8 @@ private slots:
 
     void on_btnweeklytime_clicked();
 
+    void on_btnCMDcustomtime_clicked();
+
 private:
     Ui::FrmCMDTest *ui;
 };
