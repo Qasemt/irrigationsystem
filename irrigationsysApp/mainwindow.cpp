@@ -20,6 +20,12 @@ MainWindow::MainWindow(QWidget *parent) :
     MessageWatcher::GetInstance();
     connect(_maintimer,SIGNAL(timeout()),this,SLOT(timeoutMaintimer()));
     connect(MessageWatcher::GetInstance(),SIGNAL(MessageCMDReceived(QString)),this,SLOT(onMessageCMDReceived(QString)));
+    connect(MessageWatcher::GetInstance(),SIGNAL(DailytimeDataReceived(int,QDateTime,int,int,bool)),this,SLOT(onDailytimeDataReceived(int,QDateTime,int,int,bool)));
+    connect(MessageWatcher::GetInstance(),SIGNAL(WeeklytimeDataReceived(int,int,QDateTime,int,int,bool)),this,SLOT(onWeeklytimeDataReceived(int,int,QDateTime,int,int,bool)));
+    connect(MessageWatcher::GetInstance(),SIGNAL(SchedulemodeDataReceived(int,int,bool)),this,SLOT(onSchedulemodeDataReceived(int,int,bool)));
+    connect(MessageWatcher::GetInstance(),SIGNAL(DeviceEnableDataReceived(int,int)),this,SLOT(onDeviceEnableDataReceived(int,int)));
+    connect(MessageWatcher::GetInstance(),SIGNAL(CustomtimeDataReceived(int,QDateTime,int,int,bool)),this,SLOT(onCustomtimeDataReceived(int,QDateTime,int,int,bool)));
+
     _maintimer->start(1000);
     loaddata();
 }
@@ -112,4 +118,31 @@ void MainWindow::on_btnfrmCMDtest_clicked()
 void MainWindow::onMessageCMDReceived(QString cmdMessage)
 {
     qDebug()<<"comming message : "<<cmdMessage << endl;
+}
+
+void MainWindow::onDailytimeDataReceived(int devicenumber, QDateTime startdatetime, int durationtime, int durationtype, bool issmsalert)
+{
+
+}
+
+void MainWindow::onWeeklytimeDataReceived(int devicenumber, int dayindex, QDateTime startdatetime, int durationtime, int durationtype, bool issmsalert)
+{
+
+}
+
+void MainWindow::onCustomtimeDataReceived(int devicenumber, QDateTime startdatetime, int durationtime, int durationtype, bool issmsalert)
+{
+
+}
+
+void MainWindow::onSchedulemodeDataReceived(int devicenumber, int schmode, bool issmsalertActive)
+{
+
+}
+
+void MainWindow::onDeviceEnableDataReceived(int devicenumber, int enablestatus)
+{
+    if(devicenumber<1)
+        return;
+    _bsDeviceinfo.UpdateDeviceEnableVal(devicenumber,enablestatus);
 }

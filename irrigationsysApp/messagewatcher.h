@@ -296,7 +296,7 @@ private:
 
 signals:
     void MessageCMDReceived(QString  cmdMessage);
-    void DailytimeDataReceived(int devicenumber,QDateTime startdatetime,int &durationtime,int durationtype,bool issmsalert);
+    void DailytimeDataReceived(int devicenumber,QDateTime startdatetime,int durationtime,int durationtype,bool issmsalert);
     void WeeklytimeDataReceived(int devicenumber,int dayindex,QDateTime startdatetime,int durationtime,int durationtype,bool issmsalert);
     void CustomtimeDataReceived(int devicenumber,QDateTime startdatetime,int durationtime,int durationtype,bool issmsalert);
     void SchedulemodeDataReceived(int devicenumber,int schmode,bool issmsalertActive);

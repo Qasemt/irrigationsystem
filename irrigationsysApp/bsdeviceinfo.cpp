@@ -48,6 +48,15 @@ bool BsDeviceinfo::Update(ModelDeviceinfo value)
     bool result=      baseBusiness::Update(m,where);
     return result;
 }
+bool BsDeviceinfo::UpdateDeviceEnableVal(int devicenumber,bool enableval)
+{
+    QMap<QString,QVariant> m;
+    m.insert(":code",devicenumber);
+    m.insert(":deviceenable",enableval);
+    QString where = QString("code=%1").arg(devicenumber);
+    bool result= baseBusiness::Update(m,where);
+    return result;
+}
 
 bool BsDeviceinfo::Insert(ModelDeviceinfo value)
 {
