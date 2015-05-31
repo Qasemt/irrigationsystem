@@ -18,6 +18,7 @@ public:
     bool Removebycode (int code);
 
     bool UpdateDeviceEnableVal(int devicenumber, bool enableval);
+
 };
 
 #endif // BSDEVICEINFO_H

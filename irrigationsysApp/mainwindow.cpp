@@ -137,12 +137,13 @@ void MainWindow::onCustomtimeDataReceived(int devicenumber, QDateTime startdatet
 
 void MainWindow::onSchedulemodeDataReceived(int devicenumber, int schmode, bool issmsalertActive)
 {
-
+_bs
 }
 
 void MainWindow::onDeviceEnableDataReceived(int devicenumber, int enablestatus)
 {
     if(devicenumber<1)
         return;
+
     _bsDeviceinfo.UpdateDeviceEnableVal(devicenumber,enablestatus);
 }

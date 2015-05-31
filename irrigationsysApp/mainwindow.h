@@ -11,6 +11,7 @@
 #include <QDateTime>
 #include <bsdeviceinfo.h>
 #include <bscustomtime.h>
+
 namespace Ui {
 class MainWindow;
 }
@@ -47,6 +48,7 @@ private:
     FrmCMDTest _frmCMDTest;
     BsDeviceinfo _bsDeviceinfo;
     BsCustomTime _bsCustomTime;
+
 
 
 
