@@ -120,24 +120,88 @@ void MainWindow::onMessageCMDReceived(QString cmdMessage)
     qDebug()<<"comming message : "<<cmdMessage << endl;
 }
 
-void MainWindow::onDailytimeDataReceived(int devicenumber, QDateTime startdatetime, int durationtime, int durationtype, bool issmsalert)
+void MainWindow::onDailytimeDataReceived(int devicecode, QDateTime startdatetime, int durationtime, int durationtype, bool issmsalert)
 {
+    ModelDailyTime model;
+    model.setDevicecode(devicecode);
+    model.setStarttime(startdatetime);
 
+    int sec=0;
+    int min=0;
+
+    if(durationtype==MessageWatcher::TimeDurationType_Minute)//minute
+    {
+        sec =durationtime*60;
+        min=durationtime ;
+    }else
+    {
+        min = durationtime*60;
+        sec = min*60;
+    }
+
+    model.setEnddate(startdatetime.addSecs(sec));
+    model.setDurationofsecond(sec);
+    model.setDurationofminute(min);
+    model.setSmsalert(issmsalert);
+    _BsModelDailyTime.Insert(model);
 }
 
-void MainWindow::onWeeklytimeDataReceived(int devicenumber, int dayindex, QDateTime startdatetime, int durationtime, int durationtype, bool issmsalert)
+void MainWindow::onWeeklytimeDataReceived(int devicecode, int dayindex, QDateTime startdatetime, int durationtime, int durationtype, bool issmsalert)
 {
+    ModelWeeklyTime model;
+    model.setDevicecode(devicecode);
+    model.setStarttime(startdatetime);
 
+    int sec=0;
+    int min=0;
+
+    if(durationtype==MessageWatcher::TimeDurationType_Minute)//minute
+    {
+        sec =durationtime*60;
+        min=durationtime ;
+    }else
+    {
+        min = durationtime*60;
+        sec = min*60;
+    }
+
+    model.setEnddate(startdatetime.addSecs(sec));
+    model.setDurationofsecond(sec);
+    model.setDurationofminute(min);
+    model.setSmsalert(issmsalert);
+    model.setDayindex(dayindex);
+    _BsWeeklytime.Insert(model);
 }
 
-void MainWindow::onCustomtimeDataReceived(int devicenumber, QDateTime startdatetime, int durationtime, int durationtype, bool issmsalert)
+void MainWindow::onCustomtimeDataReceived(int devicecode, QDateTime startdatetime, int durationtime, int durationtype, bool issmsalert)
 {
+    ModelCustomTime model;
+    model.setDevicecode(devicecode);
+    model.setStarttime(startdatetime);
+
+    int sec=0;
+    int min=0;
+
+    if(durationtype==MessageWatcher::TimeDurationType_Minute)//minute
+    {         sec =durationtime*60;
+        min=durationtime ;
+    }else
+    {
+        min = durationtime*60;
+        sec = min*60;
+    }
+
+    model.setEnddate(startdatetime.addSecs(sec));
+    model.setDurationofsecond(sec);
+    model.setDurationofminute(min);
+    model.setSmsalert(issmsalert);
+    _bsCustomTime.Insert(model);
 
 }
 
 void MainWindow::onSchedulemodeDataReceived(int devicenumber, int schmode, bool issmsalertActive)
 {
-_bs
+    _bsDeviceinfo.UpdateScheduleMode(devicenumber,schmode,issmsalertActive);
 }
 
 void MainWindow::onDeviceEnableDataReceived(int devicenumber, int enablestatus)

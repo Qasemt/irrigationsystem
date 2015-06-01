@@ -2,7 +2,7 @@
 
 BsCustomTime::BsCustomTime()
 {
-
+_TableName="customtime";
 }
 
 ModelCustomTime BsCustomTime::fromSqlQuery(QSqlQuery query)
@@ -52,7 +52,7 @@ bool BsCustomTime::Insert(ModelCustomTime value)
     QMap<QString,QVariant> m;
     m.insert(":devicecode",value.devicecode());
     m.insert(":starttime",value.starttime());
-    m.insert(":enddate",value.enddate());
+    m.insert(":endtime",value.enddate());
     m.insert(":durationofsecond",value.durationofsecond());
     m.insert(":durationofminute",value.durationofminute());
     m.insert(":smsalert",value.smsalert());

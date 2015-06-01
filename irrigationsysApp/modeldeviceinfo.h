@@ -10,6 +10,7 @@ private:
     bool _powerstatus;
     int _schedulemode;
     bool _deviceenable;
+    bool _smsalertenable;
 
 public:
     ModelDeviceinfo();
@@ -24,6 +25,8 @@ public:
     void setSchedulemode(int schedulemode);
     bool deviceenable() const;
     void setDeviceenable(bool deviceenable);
+    bool smsalertenable() const;
+    void setSmsalertenable(bool smsalertenable);
 };
 
 #endif // MODELDEVICEINFO_H

@@ -19,6 +19,7 @@ public:
 
     bool UpdateDeviceEnableVal(int devicenumber, bool enableval);
 
+    bool UpdateScheduleMode(int devicenumber, int shmod, bool issendSMSAlert);
 };
 
 #endif // BSDEVICEINFO_H

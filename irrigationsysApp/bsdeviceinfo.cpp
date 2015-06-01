@@ -13,6 +13,7 @@ ModelDeviceinfo BsDeviceinfo::fromSqlQuery(QSqlQuery query)
     mdl.setPowerstatus(query.value(query.record().indexOf("powerstatus")).toBool());
     mdl.setSchedulemode(query.value(query.record().indexOf("schedulemode")).toInt());
     mdl.setDeviceenable(query.value(query.record().indexOf("deviceenable")).toBool());
+    mdl.setSmsalertenable(query.value(query.record().indexOf("smsalertenable")).toBool());
     return mdl;
 }
 
@@ -45,7 +46,7 @@ bool BsDeviceinfo::Update(ModelDeviceinfo value)
     m.insert(":schedulemode",value.schedulemode());
     m.insert(":deviceenable",value.deviceenable());
     QString where = QString("code=%1").arg(value.code());
-    bool result=      baseBusiness::Update(m,where);
+    bool result= baseBusiness::Update(m,where);
     return result;
 }
 bool BsDeviceinfo::UpdateDeviceEnableVal(int devicenumber,bool enableval)
@@ -57,7 +58,26 @@ bool BsDeviceinfo::UpdateDeviceEnableVal(int devicenumber,bool enableval)
     bool result= baseBusiness::Update(m,where);
     return result;
 }
+bool BsDeviceinfo::UpdateScheduleMode(int devicenumber,int shmod,bool issendSMSAlert)
+{
+    QMap<QString,QVariant> m;
+    m.insert(":code",devicenumber);
+    m.insert(":schedulemode",shmod);
+    m.insert(":smsalertenable",issendSMSAlert);
+    QString where = QString("code=%1").arg(devicenumber);
+    bool result= baseBusiness::Update(m,where);
+    return result;
+}
 
+//bool BsDeviceinfo::UpdateDeviceEnableVal(int devicenumber,int schmod,int sms)
+//{
+//    QMap<QString,QVariant> m;
+//    m.insert(":code",devicenumber);
+//    m.insert(":deviceenable",enableval);
+//    QString where = QString("code=%1").arg(devicenumber);
+//    bool result= baseBusiness::Update(m,where);
+//    return result;
+//}
 bool BsDeviceinfo::Insert(ModelDeviceinfo value)
 {
     QMap<QString,QVariant> m;

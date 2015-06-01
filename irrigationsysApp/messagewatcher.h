@@ -8,6 +8,11 @@
 #include <qdebug.h>
 #include <qdateconvertor.h>
 
+#include <bsdeviceinfo.h>
+#include <bscustomtime.h>
+#include <bsweeklytime.h>
+#include <bsmodeldailytime.h>
+
 class MessageWatcher: public QObject
 {
     Q_OBJECT
@@ -79,16 +84,19 @@ public:
 
         if(isCMDDeviceEnable(cmdMessage,cmdnumber,devicenumber,deviceenableStatus))
         {
+
             emit DeviceEnableDataReceived(devicenumber,deviceenableStatus);
             emit MessageCMDReceived(QString("cmd number %3 : Device %1  is Enable: %2").arg(QString::number(devicenumber),QString::number(deviceenableStatus),QString::number(cmdnumber)));
         }
         else if(isCMDSetSchedulemode(cmdMessage,cmdnumber,devicenumber,schmode,issmsalert))
         {
+
             emit SchedulemodeDataReceived(devicenumber,schmode,issmsalert);
             emit MessageCMDReceived(QString("cmd number %1 : Device %2  SCH Mode: %3 is sms alert act %4").arg(QString::number(cmdnumber),QString::number(devicenumber),QString::number(schmode),QString::number(issmsalert)));
         }
         else if(isCMDSetDailytime(cmdMessage,cmdnumber,devicenumber,starttime,durationtime,durationtype,issmsalert))
         {
+
             QDateTime startdate ;
             QDateTime currentdt=QDateTime::currentDateTime();
             year=currentdt.date().year();
@@ -109,6 +117,7 @@ public:
                 tdt=TimeDurationType_Minute;
             else tdt=TimeDurationType_Hour;
 
+               _BsModelDailyTime.RemoveAll();
             emit DailytimeDataReceived(devicenumber,startdate,durationtime,tdt,issmsalert);
 
             emit MessageCMDReceived(QString("cmd number %1 : Device %2  start time : %3 duration time %4 dtype : %5 is sms alert %6")
@@ -116,6 +125,8 @@ public:
         }
         else if(isCMDSetweeklytime(cmdMessage,cmdnumber,dayindex,devicenumber,starttime,durationtime,durationtype,issmsalert))
         {
+
+
             QDateTime startdate ;
              QDateTime currentdt=QDateTime::currentDateTime();
             year=currentdt.date().year();
@@ -135,6 +146,7 @@ public:
                 tdt=TimeDurationType_Minute;
             else tdt=TimeDurationType_Hour;
 
+             _BsWeeklytime.RemoveAll();
             emit WeeklytimeDataReceived(devicenumber,dayindex,startdate,durationtime,tdt,issmsalert);
 
 
@@ -143,6 +155,7 @@ public:
         }
         else if(isCMDSetCustomtime(cmdMessage,cmdnumber,devicenumber,starttime,strDate,durationtime,durationtype,issmsalert))
         {
+
             QDateTime startdate ;
             if(strDate.length()==8)
             {
@@ -166,6 +179,8 @@ public:
                 tdt=TimeDurationType_Minute;
             else tdt=TimeDurationType_Hour;
 
+              _bsCustomTime.RemoveAll();
+
             emit CustomtimeDataReceived(devicenumber,startdate,durationtime,tdt,issmsalert);
 
 
@@ -176,6 +191,10 @@ public:
 
     }
 private:
+    BsDeviceinfo _bsDeviceinfo;
+    BsCustomTime _bsCustomTime;
+    BsWeeklytime _BsWeeklytime;
+    BsModelDailyTime _BsModelDailyTime;
 
     int devicenumber;
     bool deviceenableStatus;
@@ -269,7 +288,7 @@ private:
     {
         // $cmd\$(4)@(\d),([1-7]),([0-9]{1,2}\:[0-9]{1,2}),([1-9]{1,5})([m|M|h|H]),(\d)@
 
-        QRegExp rx("\\$cmd\\$(4)@(\\d),([1-7]),([0-9]{1,2}\:[0-9]{1,2}),([1-9]{1,5})([m|M|h|H]),(\\d)@");
+        QRegExp rx("\\$cmd\\$(4)@(\\d),([1-7]),([0-9]{1,2}\\:[0-9]{1,2}),([1-9]{1,5})([m|M|h|H]),(\\d)@");
         //$cmd$4@1,7,00:12,33m,1@
 
         bool result=false;

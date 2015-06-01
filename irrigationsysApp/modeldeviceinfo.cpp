@@ -50,6 +50,16 @@ void ModelDeviceinfo::setDeviceenable(bool deviceenable)
 {
     _deviceenable = deviceenable;
 }
+
+bool ModelDeviceinfo::smsalertenable() const
+{
+    return _smsalertenable;
+}
+
+void ModelDeviceinfo::setSmsalertenable(bool smsalertenable)
+{
+    _smsalertenable = smsalertenable;
+}
 ModelDeviceinfo::ModelDeviceinfo()
 {
 
