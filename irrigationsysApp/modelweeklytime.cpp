@@ -41,14 +41,14 @@ void ModelWeeklyTime::setStarttime(const QDateTime &starttime)
     _starttime = starttime;
 }
 
-QDateTime ModelWeeklyTime::enddate() const
+QDateTime ModelWeeklyTime::endtime() const
 {
-    return _enddate;
+    return _endtime;
 }
 
-void ModelWeeklyTime::setEnddate(const QDateTime &enddate)
+void ModelWeeklyTime::setEndTime(const QDateTime &enddate)
 {
-    _enddate = enddate;
+    _endtime = enddate;
 }
 
 int ModelWeeklyTime::durationofsecond() const

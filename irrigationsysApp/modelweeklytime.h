@@ -10,7 +10,7 @@ private:
     int _devicecode    ;
     int _dayindex;
     QDateTime _starttime;
-    QDateTime _enddate;
+    QDateTime _endtime;
     int _durationofsecond;
     int _durationofminute;
     bool _smsalert;
@@ -28,8 +28,8 @@ public:
     QDateTime starttime() const;
     void setStarttime(const QDateTime &starttime);
 
-    QDateTime enddate() const;
-    void setEnddate(const QDateTime &enddate);
+    QDateTime endtime() const;
+    void setEndTime(const QDateTime &endtime);
 
     int durationofsecond() const;
     void setDurationofsecond(int durationofsecond);

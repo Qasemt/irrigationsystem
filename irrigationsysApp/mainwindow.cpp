@@ -165,7 +165,7 @@ void MainWindow::onWeeklytimeDataReceived(int devicecode, int dayindex, QDateTim
         sec = min*60;
     }
 
-    model.setEnddate(startdatetime.addSecs(sec));
+    model.setEndTime(startdatetime.addSecs(sec));
     model.setDurationofsecond(sec);
     model.setDurationofminute(min);
     model.setSmsalert(issmsalert);
