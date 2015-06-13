@@ -20,6 +20,8 @@ public:
     bool UpdateDeviceEnableVal(int devicenumber, bool enableval);
 
     bool UpdateScheduleMode(int devicenumber, int shmod, bool issendSMSAlert);
+    bool IsPowerOn(int devicenumber);
+    bool UpdatePowerStatus(int devicenumber, bool pwrStatus);
 };
 
 #endif // BSDEVICEINFO_H

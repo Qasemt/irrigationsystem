@@ -101,59 +101,61 @@ public:
         }
 
 
-            if(cmdnumber==2)
-            {
-                QStringList recs=   getCMDData(cmdMessage);
-                foreach (QString rec, recs) {
-                    if(isCMDSetSchedulemode(rec,devicenumber,schmode,issmsalert))
-                    {
+        if(cmdnumber==2) //schedule mode
+        {
+            QStringList recs=   getCMDData(cmdMessage);
+            foreach (QString rec, recs) {
+                if(isCMDSetSchedulemode(rec,devicenumber,schmode,issmsalert))
+                {
 
-                        emit SchedulemodeDataReceived(devicenumber,schmode,issmsalert);
-                        emit MessageCMDReceived(QString("cmd number %1 : Device %2  SCH Mode: %3 is sms alert act %4").arg(QString::number(cmdnumber),QString::number(devicenumber),QString::number(schmode),QString::number(issmsalert)));
-                    }
-                }
-
-            }
-            if(cmdnumber==3)
-            {
-                QStringList recs=   getCMDData(cmdMessage);
-                foreach (QString rec, recs) {
-
-                    if(isCMDSetDailytime(rec,devicenumber,starttime,durationtime,durationtype,issmsalert))
-                    {
-
-                        QDateTime startdate ;
-                        QDateTime currentdt=QDateTime::currentDateTime();
-                        year=currentdt.date().year();
-                        month=currentdt.date().month();
-                        day=currentdt.date().day();
-
-
-
-                        if(starttime.length()==5)
-                        {
-                            hour=  starttime.mid(0,2).toInt();
-                            minute= starttime.mid(3,2).toInt();
-                        }
-
-                        startdate =ToDatetime(year,month,day,hour,minute,0);
-                        TimeDurationType tdt;
-                        if(durationtype=="m" || durationtype=="M")
-                            tdt=TimeDurationType_Minute;
-                        else tdt=TimeDurationType_Hour;
-
-                        _BsModelDailyTime.RemoveAll();
-                        emit DailytimeDataReceived(devicenumber,startdate,durationtime,tdt,issmsalert);
-
-                        emit MessageCMDReceived(QString("cmd number %1 : Device %2  start time : %3 duration time %4 dtype : %5 is sms alert %6")
-                                                .arg(QString::number(cmdnumber),QString::number(devicenumber),starttime,QString::number(durationtime),durationtype,QString::number(issmsalert)));
-                    }
+                    emit SchedulemodeDataReceived(devicenumber,schmode,issmsalert);
+                    emit MessageCMDReceived(QString("cmd number %1 : Device %2  SCH Mode: %3 is sms alert act %4").arg(QString::number(cmdnumber),QString::number(devicenumber),QString::number(schmode),QString::number(issmsalert)));
                 }
             }
-            if(cmdnumber==4)
-            {
-                QStringList recs=   getCMDData(cmdMessage);
-                foreach (QString rec, recs) {
+
+        }
+        if(cmdnumber==3)
+        {
+            QStringList recs=   getCMDData(cmdMessage);
+            _BsModelDailyTime.RemoveAll();
+            foreach (QString rec, recs) {
+
+                if(isCMDSetDailytime(rec,devicenumber,starttime,durationtime,durationtype,issmsalert))
+                {
+
+                    QDateTime startdate ;
+                    QDateTime currentdt=QDateTime::currentDateTime();
+                    year=currentdt.date().year();
+                    month=currentdt.date().month();
+                    day=currentdt.date().day();
+
+
+
+                    if(starttime.length()==5)
+                    {
+                        hour=  starttime.mid(0,2).toInt();
+                        minute= starttime.mid(3,2).toInt();
+                    }
+
+                    startdate =ToDatetime(year,month,day,hour,minute,0);
+                    TimeDurationType tdt;
+                    if(durationtype=="m" || durationtype=="M")
+                        tdt=TimeDurationType_Minute;
+                    else tdt=TimeDurationType_Hour;
+
+
+                    emit DailytimeDataReceived(devicenumber,startdate,durationtime,tdt,issmsalert);
+
+                    emit MessageCMDReceived(QString("cmd number %1 : Device %2  start time : %3 duration time %4 dtype : %5 is sms alert %6")
+                                            .arg(QString::number(cmdnumber),QString::number(devicenumber),starttime,QString::number(durationtime),durationtype,QString::number(issmsalert)));
+                }
+            }
+        }
+        if(cmdnumber==4)
+        {
+            _BsWeeklytime.RemoveAll();
+            QStringList recs=   getCMDData(cmdMessage);
+            foreach (QString rec, recs) {
 
 
                 if(isCMDSetweeklytime(rec,dayindex,devicenumber,starttime,durationtime,durationtype,issmsalert))
@@ -179,21 +181,23 @@ public:
                         tdt=TimeDurationType_Minute;
                     else tdt=TimeDurationType_Hour;
 
-                    _BsWeeklytime.RemoveAll();
+
                     emit WeeklytimeDataReceived(devicenumber,dayindex,startdate,durationtime,tdt,issmsalert);
 
 
                     emit MessageCMDReceived(QString("cmd number %1 : Device %2  start time : %3 duration time %4 dtype : %5 day index %6  is sms alert %7")
                                             .arg(QString::number(cmdnumber),QString::number(devicenumber),starttime,QString::number(durationtime),durationtype,QString::number(dayindex),QString::number(issmsalert)));
                 }
-                }
-
             }
 
-            if(cmdnumber==5)
-            {
-                QStringList recs=   getCMDData(cmdMessage);
-                foreach (QString rec, recs) {
+        }
+
+        if(cmdnumber==5)
+        {
+            _bsCustomTime.RemoveAll();
+            QStringList recs=   getCMDData(cmdMessage);
+
+            foreach (QString rec, recs) {
 
                 if(isCMDSetCustomtime(rec,devicenumber,starttime,strDate,durationtime,durationtype,issmsalert))
                 {
@@ -221,7 +225,7 @@ public:
                         tdt=TimeDurationType_Minute;
                     else tdt=TimeDurationType_Hour;
 
-                    _bsCustomTime.RemoveAll();
+
 
                     emit CustomtimeDataReceived(devicenumber,startdate,durationtime,tdt,issmsalert);
 
@@ -229,170 +233,170 @@ public:
                     emit MessageCMDReceived(QString("cmd number %1 : Device %2  start time : %3 start date %4 duration time %5 dtype : %6 is sms alert %7")
                                             .arg(QString::number(cmdnumber),QString::number(devicenumber),starttime,strDate,QString::number(durationtime),durationtype,QString::number(issmsalert)));
                 }
-                }
             }
-
-        }
-        private:
-        BsDeviceinfo _bsDeviceinfo;
-        BsCustomTime _bsCustomTime;
-        BsWeeklytime _BsWeeklytime;
-        BsModelDailyTime _BsModelDailyTime;
-
-        int devicenumber;
-        bool deviceenableStatus;
-        int cmdnumber;
-        //---------------- CMD validation -----------------------
-
-        bool isCMDDeviceEnable(QString cmdmessage,int &devicenumber,bool &status)
-        {
-
-            QRegExp rx("(\\d),(\\d)");
-            //@1,1@
-
-            bool result=false;
-            int pos =rx.indexIn(cmdmessage);
-            if (pos > -1) {
-
-                devicenumber = rx.cap(1).toInt();// device number
-                status = rx.cap(2).toInt();// enable/disable
-                result=true;
-                // qDebug()<<cap1<<QString::number(devicenumber);
-            }
-            return result;
         }
 
+    }
+private:
+    BsDeviceinfo _bsDeviceinfo;
+    BsCustomTime _bsCustomTime;
+    BsWeeklytime _BsWeeklytime;
+    BsModelDailyTime _BsModelDailyTime;
 
-        bool isCMDSetSchedulemode(QString cmdmessage,int &devicenumber,int &schmode,bool &issmsalert)
-        {
+    int devicenumber;
+    bool deviceenableStatus;
+    int cmdnumber;
+    //---------------- CMD validation -----------------------
 
-            QRegExp rx("(\\d),(\\d),(\\d)");
+    bool isCMDDeviceEnable(QString cmdmessage,int &devicenumber,bool &status)
+    {
 
-            bool result=false;
-            int pos =rx.indexIn(cmdmessage);
-            if (pos > -1) {
+        QRegExp rx("(\\d),(\\d)");
+        //@1,1@
 
+        bool result=false;
+        int pos =rx.indexIn(cmdmessage);
+        if (pos > -1) {
 
-                devicenumber = rx.cap(1).toInt();// device number
-                schmode = rx.cap(2).toInt();//sch mode
-                issmsalert = rx.cap(3).toInt();// sms alert
-                result=true;
-            }
-            return result;
+            devicenumber = rx.cap(1).toInt();// device number
+            status = rx.cap(2).toInt();// enable/disable
+            result=true;
+            // qDebug()<<cap1<<QString::number(devicenumber);
         }
-
-        bool isCMDSetDailytime(QString cmdmessage,int &devicenumber,QString &starttime,int &durationtime,QString &durationtype,bool &issmsalert)
-        {
-            //@(\d),([0-9]{1,2}\:[0-9]{1,2}),([1-9]{1,5})([m|M|h|H]),(\d)@
-
-            QRegExp rx("(\\d),([0-9]{1,2}\\:[0-9]{1,2}),([1-9]{1,5})([m|M|h|H]),(\\d)");
-            //@1,10:12,33m,1@
-
-            bool result=false;
-            int pos =rx.indexIn(cmdmessage);
-            if (pos > -1) {
+        return result;
+    }
 
 
-                devicenumber = rx.cap(1).toInt();// device number
-                starttime = rx.cap(2);
-                durationtime = rx.cap(3).toInt();
-                durationtype =rx.cap(4);
-                issmsalert = rx.cap(5).toInt();// sms alert
-                result=true;
-            }
-            return result;
+    bool isCMDSetSchedulemode(QString cmdmessage,int &devicenumber,int &schmode,bool &issmsalert)
+    {
+
+        QRegExp rx("(\\d),(\\d),(\\d)");
+
+        bool result=false;
+        int pos =rx.indexIn(cmdmessage);
+        if (pos > -1) {
+
+
+            devicenumber = rx.cap(1).toInt();// device number
+            schmode = rx.cap(2).toInt();//sch mode
+            issmsalert = rx.cap(3).toInt();// sms alert
+            result=true;
         }
+        return result;
+    }
 
-        bool isCMDSetCustomtime(QString cmdmessage,int &devicenumber,QString &strTime,QString &strDate,int &durationtime,QString &durationtype,bool &issmsalert)
-        {
-            //@(\d),(\d{8}),([0-9]{1,2}\:[0-9]{1,2}),([1-9]{1,5})([m|M|h|H]),(\d)@
+    bool isCMDSetDailytime(QString cmdmessage,int &devicenumber,QString &starttime,int &durationtime,QString &durationtype,bool &issmsalert)
+    {
+        //@(\d),([0-9]{1,2}\:[0-9]{1,2}),([1-9]{1,5})([m|M|h|H]),(\d)@
 
-            QRegExp rx("(\\d),(\\d{8}),([0-9]{1,2}\\:[0-9]{1,2}),([1-9]{1,5})([m|M|h|H]),(\\d)");
-            //@1,930402,10:12,33m,1@
+        QRegExp rx("(\\d),([0-9]{1,2}\\:[0-9]{1,2}),([1-9]{1,5})([m|M|h|H]),(\\d)");
+        //@1,10:12,33m,1@
 
-            bool result=false;
-            int pos =rx.indexIn(cmdmessage);
-            if (pos > -1) {
+        bool result=false;
+        int pos =rx.indexIn(cmdmessage);
+        if (pos > -1) {
 
-                devicenumber = rx.cap(1).toInt();// device number
-                strDate  = rx.cap(2); //time
-                strTime  =rx.cap(3);  // date
-                durationtime = rx.cap(4).toInt(); // m/h
-                durationtype =rx.cap(5);
-                issmsalert = rx.cap(6).toInt();// sms alert
-                result=true;
-            }
-            return result;
+
+            devicenumber = rx.cap(1).toInt();// device number
+            starttime = rx.cap(2);
+            durationtime = rx.cap(3).toInt();
+            durationtype =rx.cap(4);
+            issmsalert = rx.cap(5).toInt();// sms alert
+            result=true;
         }
+        return result;
+    }
 
-        bool isCMDSetweeklytime(QString cmdmessage,int &dayindex,int &devicenumber,QString &starttime,int &durationtime,QString &durationtype,bool &issmsalert)
-        {
-            //@(\d),([1-7]),([0-9]{1,2}\:[0-9]{1,2}),([1-9]{1,5})([m|M|h|H]),(\d)@
+    bool isCMDSetCustomtime(QString cmdmessage,int &devicenumber,QString &strTime,QString &strDate,int &durationtime,QString &durationtype,bool &issmsalert)
+    {
+        //@(\d),(\d{8}),([0-9]{1,2}\:[0-9]{1,2}),([1-9]{1,5})([m|M|h|H]),(\d)@
 
-            QRegExp rx("(\\d),([1-7]),([0-9]{1,2}\\:[0-9]{1,2}),([1-9]{1,5})([m|M|h|H]),(\\d)");
-            //@1,7,00:12,33m,1@
+        QRegExp rx("(\\d),(\\d{8}),([0-9]{1,2}\\:[0-9]{1,2}),([1-9]{1,5})([m|M|h|H]),(\\d)");
+        //@1,930402,10:12,33m,1@
 
-            bool result=false;
-            int pos =rx.indexIn(cmdmessage);
-            if (pos > -1) {
+        bool result=false;
+        int pos =rx.indexIn(cmdmessage);
+        if (pos > -1) {
 
-
-                devicenumber = rx.cap(1).toInt();// device number
-                dayindex=rx.cap(2).toInt(); //day index
-                starttime = rx.cap(3);
-                durationtime = rx.cap(4).toInt();
-                durationtype =rx.cap(5);
-                issmsalert = rx.cap(6).toInt();// sms alert
-                result=true;
-
-            }
-            return result;
+            devicenumber = rx.cap(1).toInt();// device number
+            strDate  = rx.cap(2); //time
+            strTime  =rx.cap(3);  // date
+            durationtime = rx.cap(4).toInt(); // m/h
+            durationtype =rx.cap(5);
+            issmsalert = rx.cap(6).toInt();// sms alert
+            result=true;
         }
+        return result;
+    }
+
+    bool isCMDSetweeklytime(QString cmdmessage,int &dayindex,int &devicenumber,QString &starttime,int &durationtime,QString &durationtype,bool &issmsalert)
+    {
+        //@(\d),([1-7]),([0-9]{1,2}\:[0-9]{1,2}),([1-9]{1,5})([m|M|h|H]),(\d)@
+
+        QRegExp rx("(\\d),([1-7]),([0-9]{1,2}\\:[0-9]{1,2}),([1-9]{1,5})([m|M|h|H]),(\\d)");
+        //@1,7,00:12,33m,1@
+
+        bool result=false;
+        int pos =rx.indexIn(cmdmessage);
+        if (pos > -1) {
 
 
-        bool getCMDNumber(QString cmdmessage, int &cmdnumber )
-        {
-            QRegExp rx("\\$cmd\\$(\\d)@");
-            //$cmd$4@
+            devicenumber = rx.cap(1).toInt();// device number
+            dayindex=rx.cap(2).toInt(); //day index
+            starttime = rx.cap(3);
+            durationtime = rx.cap(4).toInt();
+            durationtype =rx.cap(5);
+            issmsalert = rx.cap(6).toInt();// sms alert
+            result=true;
 
-            bool result=false;
-            int pos =rx.indexIn(cmdmessage);
-            if (pos > -1) {
-
-                cmdnumber = rx.cap(1).toInt();//cmd number
-                result=true;
-
-            }
-            return result;
         }
-
-        QStringList getCMDData(QString cmdmessage )
-        {
-            QRegExp rx("\\@(.*)\\@");
+        return result;
+    }
 
 
-            QStringList result;
-            int pos =rx.indexIn(cmdmessage);
-            if (pos > -1) {
+    bool getCMDNumber(QString cmdmessage, int &cmdnumber )
+    {
+        QRegExp rx("\\$cmd\\$(\\d)@");
+        //$cmd$4@
 
-                QString body= rx.cap(1);
-                result=  body.split(";");
+        bool result=false;
+        int pos =rx.indexIn(cmdmessage);
+        if (pos > -1) {
 
+            cmdnumber = rx.cap(1).toInt();//cmd number
+            result=true;
 
-            }
-            return result;
         }
+        return result;
+    }
+
+    QStringList getCMDData(QString cmdmessage )
+    {
+        QRegExp rx("\\@(.*)\\@");
+
+
+        QStringList result;
+        int pos =rx.indexIn(cmdmessage);
+        if (pos > -1) {
+
+            QString body= rx.cap(1);
+            result=  body.split(";");
+
+
+        }
+        return result;
+    }
 
 
 
-        signals:
-        void MessageCMDReceived(QString  cmdMessage);
-        void DailytimeDataReceived(int devicenumber,QDateTime startdatetime,int durationtime,int durationtype,bool issmsalert);
-        void WeeklytimeDataReceived(int devicenumber,int dayindex,QDateTime startdatetime,int durationtime,int durationtype,bool issmsalert);
-        void CustomtimeDataReceived(int devicenumber,QDateTime startdatetime,int durationtime,int durationtype,bool issmsalert);
-        void SchedulemodeDataReceived(int devicenumber,int schmode,bool issmsalertActive);
-        void DeviceEnableDataReceived(int devicenumber,int enablestatus);
+signals:
+    void MessageCMDReceived(QString  cmdMessage);
+    void DailytimeDataReceived(int devicenumber,QDateTime startdatetime,int durationtime,int durationtype,bool issmsalert);
+    void WeeklytimeDataReceived(int devicenumber,int dayindex,QDateTime startdatetime,int durationtime,int durationtype,bool issmsalert);
+    void CustomtimeDataReceived(int devicenumber,QDateTime startdatetime,int durationtime,int durationtype,bool issmsalert);
+    void SchedulemodeDataReceived(int devicenumber,int schmode,bool issmsalertActive);
+    void DeviceEnableDataReceived(int devicenumber,int enablestatus);
 
-    };
+};
 
 #endif // MESSAGEWATCHER_H

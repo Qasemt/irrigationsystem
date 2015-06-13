@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QDesktopWidget>
 #include <QDebug>
+QList<ModelDeviceinfo> _Deviceinfo;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -47,10 +48,39 @@ void MainWindow::on_btnClose_clicked()
     DataHelper::getInstance()->dbDisconnect();
 }
 
+//---------------------- timer -----------------------
 void MainWindow::timeoutMaintimer()
 {
     _maintimer->stop();
-    // qDebug()<<"f";
+    if(_Deviceinfo[0].deviceenable())
+    {
+
+        qDebug()<<"Device enable :"+QString::number(_Deviceinfo[0].code());
+
+        if(_Deviceinfo[0].powerstatus())
+        {
+            _Deviceinfo[0].setPowerstatus(false);
+            _bsDeviceinfo.Update(_Deviceinfo[0]);
+        }else
+        {
+            _Deviceinfo[0].setPowerstatus(true);
+            _bsDeviceinfo.Update(_Deviceinfo[0]);
+        }
+    }
+    if(_Deviceinfo[1].deviceenable())
+    {
+        qDebug()<<"Device enable :"+QString::number(_Deviceinfo[1].code());
+    }
+    if(_Deviceinfo[2].deviceenable())
+    {
+        qDebug()<<"Device enable :"+QString::number(_Deviceinfo[2].code());
+    }
+    if(_Deviceinfo[3].deviceenable())
+    {
+        qDebug()<<"Device enable :"+QString::number(_Deviceinfo[3].code());
+    }
+
+    qDebug()<<"f";
     _maintimer->start(1000);
 
 }
@@ -89,25 +119,10 @@ void MainWindow::loaddata()
     //-------------------------
     ui->tableView1->setModel(_records);
     ui->tableView1->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-
-    //    ui->tableView1->horizontalHeader()->resizeSection(1, QHeaderView::Stretch);
-    //    ui->tableView1->horizontalHeader()->resizeSection(1, QHeaderView::Interactive);
-    //  ui->tableView1->horizontalHeader()->resizeSection(2, QHeaderView::Interactive);
-    //       ui->tableView1->horizontalHeader()->setSectionResizeMode(8, QHeaderView::ResizeToContents);
-    //       ui->tableView1->horizontalHeader()->setSectionResizeMode(9, QHeaderView::ResizeToContents);
-
-    //  ui->tableView1->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableView1->setShowGrid(true);
-    //  ui->tableView1-> setSelectionBehavior(QAbstractItemView::SelectRows);
-    //       ui->tableView1->hideColumn(2);
-    //       ui->tableView1->hideColumn(3);
-    //       ui->tableView1->hideColumn(4);
-    //       ui->tableView1->hideColumn(5);
-    //       ui->tableView1->hideColumn(6);
 
+    _Deviceinfo=_bsDeviceinfo.FillData();
 
-    //   ui->tableView1->setLayoutDirection(Qt::RightToLeft);
-    //   ui->tableView1->setItemDelegate(new ImageDelegate(this));
 }
 
 void MainWindow::on_btnfrmCMDtest_clicked()
@@ -210,4 +225,27 @@ void MainWindow::onDeviceEnableDataReceived(int devicenumber, int enablestatus)
         return;
 
     _bsDeviceinfo.UpdateDeviceEnableVal(devicenumber,enablestatus);
+    switch (devicenumber) {
+    case 1:
+        if(enablestatus)
+            qDebug()<<"Device 1 Active";
+        else qDebug()<<"Device 1 DeActive";
+        break;
+    case 2:
+        if(enablestatus)
+            qDebug()<<"Device 2 Active";
+        else qDebug()<<"Device 2 DeActive";
+        break;
+    case 3:
+        if(enablestatus)
+            qDebug()<<"Device 3 Active";
+        else qDebug()<<"Device 3 DeActive";
+        break;
+    case 4:
+        if(enablestatus)
+            qDebug()<<"Device 4 Active";
+        else qDebug()<<"Device 4 DeActive";
+        break;
+    }
+    _Deviceinfo=_bsDeviceinfo.FillData();
 }
