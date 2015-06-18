@@ -2,7 +2,10 @@
 #include "ui_mainwindow.h"
 #include <QDesktopWidget>
 #include <QDebug>
+#include <deviceprocess.h>
+
 QList<ModelDeviceinfo> _Deviceinfo;
+DeviceProcess _deviceProcess1;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -29,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     _maintimer->start(1000);
     loaddata();
+    //---------------
+    _deviceProcess1.deviceCheck(1);
 }
 
 MainWindow::~MainWindow()
@@ -52,35 +57,10 @@ void MainWindow::on_btnClose_clicked()
 void MainWindow::timeoutMaintimer()
 {
     _maintimer->stop();
-    if(_Deviceinfo[0].deviceenable())
-    {
 
-        qDebug()<<"Device enable :"+QString::number(_Deviceinfo[0].code());
 
-        if(_Deviceinfo[0].powerstatus())
-        {
-            _Deviceinfo[0].setPowerstatus(false);
-            _bsDeviceinfo.Update(_Deviceinfo[0]);
-        }else
-        {
-            _Deviceinfo[0].setPowerstatus(true);
-            _bsDeviceinfo.Update(_Deviceinfo[0]);
-        }
-    }
-    if(_Deviceinfo[1].deviceenable())
-    {
-        qDebug()<<"Device enable :"+QString::number(_Deviceinfo[1].code());
-    }
-    if(_Deviceinfo[2].deviceenable())
-    {
-        qDebug()<<"Device enable :"+QString::number(_Deviceinfo[2].code());
-    }
-    if(_Deviceinfo[3].deviceenable())
-    {
-        qDebug()<<"Device enable :"+QString::number(_Deviceinfo[3].code());
-    }
 
-    qDebug()<<"f";
+
     _maintimer->start(1000);
 
 }

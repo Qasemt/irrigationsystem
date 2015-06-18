@@ -11,12 +11,38 @@ ModelCustomTime BsCustomTime::fromSqlQuery(QSqlQuery query)
     mdl.setId(query.value(query.record().indexOf("id")).toInt());
     mdl.setDevicecode(query.value(query.record().indexOf("devicecode")).toInt());
     mdl.setStarttime(query.value(query.record().indexOf("starttime")).toDateTime());
-    mdl.setEnddate(query.value(query.record().indexOf("enddate")).toDateTime());
+    mdl.setEnddate(query.value(query.record().indexOf("endtime")).toDateTime());
     mdl.setDurationofsecond(query.value(query.record().indexOf("durationofsecond")).toInt());
     mdl.setDurationofminute(query.value(query.record().indexOf("durationofminute")).toInt());
     mdl.setSmsalert(query.value(query.record().indexOf("smsalert")).toBool());
 
     return mdl;
+}
+
+ModelCustomTime BsCustomTime::FillbyCode(int code)
+{
+    QSqlQuery   query;
+   ModelCustomTime tmp;
+    query=  baseBusiness::FillData("*",QString("devicecode=%1").arg(QString::number(code)));
+    while (query.next())
+    {
+        tmp= fromSqlQuery(query);
+
+    }
+    return tmp;
+}
+
+QList<ModelCustomTime> BsCustomTime::FillDatabyCode(int code)
+{
+    QSqlQuery   query;
+    QList<ModelCustomTime> tmplist;
+    query=  baseBusiness::FillData("*",QString("devicecode=%1").arg(QString::number(code)));
+    while (query.next())
+    {
+        ModelCustomTime md= fromSqlQuery(query);
+        tmplist.append(md);
+    }
+    return tmplist;
 }
 
 QList<ModelCustomTime> BsCustomTime::FillData()
@@ -37,7 +63,7 @@ bool BsCustomTime::Update(ModelCustomTime value)
     QMap<QString,QVariant> m;
     m.insert(":devicecode",value.devicecode());
     m.insert(":starttime",value.starttime());
-    m.insert(":enddate",value.enddate());
+    m.insert(":endtime",value.enddate());
     m.insert(":durationofsecond",value.durationofsecond());
     m.insert(":durationofminute",value.durationofminute());
     m.insert(":smsalert",value.smsalert());

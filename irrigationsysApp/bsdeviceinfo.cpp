@@ -16,7 +16,18 @@ ModelDeviceinfo BsDeviceinfo::fromSqlQuery(QSqlQuery query)
     mdl.setSmsalertenable(query.value(query.record().indexOf("smsalertenable")).toBool());
     return mdl;
 }
+ModelDeviceinfo BsDeviceinfo::FillbyCode(int code)
+{
+    QSqlQuery   query;
+   ModelDeviceinfo tmp;
+    query=  baseBusiness::FillData("*",QString("code=%1").arg(QString::number(code)));
+    while (query.next())
+    {
+        tmp= fromSqlQuery(query);
 
+    }
+    return tmp;
+}
 QList<ModelDeviceinfo> BsDeviceinfo::FillData()
 {
     QSqlQuery   query;

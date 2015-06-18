@@ -31,14 +31,14 @@ void ModelDeviceinfo::setPowerstatus(bool powerstatus)
     _powerstatus = powerstatus;
 }
 
-int ModelDeviceinfo::schedulemode() const
+eSchedulemode ModelDeviceinfo::schedulemode() const
 {
     return _schedulemode;
 }
 
 void ModelDeviceinfo::setSchedulemode(int schedulemode)
 {
-    _schedulemode = schedulemode;
+    _schedulemode = (eSchedulemode)schedulemode;
 }
 
 bool ModelDeviceinfo::deviceenable() const
@@ -62,6 +62,6 @@ void ModelDeviceinfo::setSmsalertenable(bool smsalertenable)
 }
 ModelDeviceinfo::ModelDeviceinfo()
 {
-
+setCode(-1);
 }
 

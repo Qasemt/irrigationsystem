@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     bseventslog.cpp \
     frmcmdtest.cpp \
     messagewatcher.cpp \
-    qdateconvertor.cpp
+    qdateconvertor.cpp \
+    deviceprocess.cpp
 
 HEADERS  += mainwindow.h \
     gsmreader.h \
@@ -58,7 +59,9 @@ HEADERS  += mainwindow.h \
     bseventslog.h \
     frmcmdtest.h \
     messagewatcher.h \
-    qdateconvertor.h
+    qdateconvertor.h \
+    aenums.h \
+    deviceprocess.h
 
 FORMS    += mainwindow.ui \
     frmdbtest.ui \

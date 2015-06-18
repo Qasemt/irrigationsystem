@@ -15,6 +15,9 @@ public:
     bool Insert(ModelCustomTime value);
     bool RemoveAll ();
     bool Removebyid (int id);
+    ModelCustomTime FillbyCode(int code);
+
+    QList<ModelCustomTime> FillDatabyCode(int code);
 };
 
 #endif // BSCUSTOMTIME_H
