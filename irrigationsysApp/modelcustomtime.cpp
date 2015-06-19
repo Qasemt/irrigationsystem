@@ -41,14 +41,14 @@ void ModelCustomTime::setStarttime(const QDateTime &starttime)
     _starttime = starttime;
 }
 
-QDateTime ModelCustomTime::enddate() const
+QDateTime ModelCustomTime::endtime() const
 {
-    return _enddate;
+    return _endtime;
 }
 
-void ModelCustomTime::setEnddate(const QDateTime &enddate)
+void ModelCustomTime::setEndTime(const QDateTime &enddate)
 {
-    _enddate = enddate;
+    _endtime = enddate;
 }
 
 int ModelCustomTime::durationofsecond() const

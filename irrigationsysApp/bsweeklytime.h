@@ -15,6 +15,7 @@ public:
     bool Insert(ModelWeeklyTime value);
     bool RemoveAll ();
     bool RemovebyId (int id);
+    QList<ModelWeeklyTime> FillDatabyCode(int code);
 };
 
 #endif // BSWEEKLYTIME_H

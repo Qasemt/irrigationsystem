@@ -33,14 +33,14 @@ void ModelDailyTime::setDurationofsecond(int durationofsecond)
     _durationofsecond = durationofsecond;
 }
 
-QDateTime ModelDailyTime::enddate() const
+QDateTime ModelDailyTime::endtime() const
 {
-    return _enddate;
+    return _endtime;
 }
 
-void ModelDailyTime::setEnddate(const QDateTime &enddate)
+void ModelDailyTime::setEndTime(const QDateTime &enddate)
 {
-    _enddate = enddate;
+    _endtime = enddate;
 }
 
 QDateTime ModelDailyTime::starttime() const

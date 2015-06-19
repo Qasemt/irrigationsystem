@@ -87,6 +87,7 @@ public:
 
         if(cmdnumber==1)
         {
+
             QStringList recs=   getCMDData(cmdMessage);
             foreach (QString rec, recs) {
 
@@ -98,6 +99,7 @@ public:
                 }
 
             }
+            emit RefreshData();
         }
 
 
@@ -113,6 +115,7 @@ public:
                 }
             }
 
+            emit RefreshData();
         }
         if(cmdnumber==3)
         {
@@ -150,6 +153,7 @@ public:
                                             .arg(QString::number(cmdnumber),QString::number(devicenumber),starttime,QString::number(durationtime),durationtype,QString::number(issmsalert)));
                 }
             }
+            emit RefreshData();
         }
         if(cmdnumber==4)
         {
@@ -189,7 +193,7 @@ public:
                                             .arg(QString::number(cmdnumber),QString::number(devicenumber),starttime,QString::number(durationtime),durationtype,QString::number(dayindex),QString::number(issmsalert)));
                 }
             }
-
+            emit RefreshData();
         }
 
         if(cmdnumber==5)
@@ -234,6 +238,7 @@ public:
                                             .arg(QString::number(cmdnumber),QString::number(devicenumber),starttime,strDate,QString::number(durationtime),durationtype,QString::number(issmsalert)));
                 }
             }
+            emit RefreshData();
         }
 
     }
@@ -396,7 +401,7 @@ signals:
     void CustomtimeDataReceived(int devicenumber,QDateTime startdatetime,int durationtime,int durationtype,bool issmsalert);
     void SchedulemodeDataReceived(int devicenumber,int schmode,bool issmsalertActive);
     void DeviceEnableDataReceived(int devicenumber,int enablestatus);
-
+    void RefreshData();
 };
 
 #endif // MESSAGEWATCHER_H

@@ -47,8 +47,8 @@ void FrmDBTest::on_btnDailyTime1_clicked()
     QTime stime(10,22,0);
     QTime etime(11,1,1);
     mdl.setStarttime(QDateTime(dt,stime));
-    mdl.setEnddate(QDateTime(dt,etime));
-    mdl.setDurationofsecond(mdl.starttime().secsTo(mdl.enddate()));
+    mdl.setEndTime(QDateTime(dt,etime));
+    mdl.setDurationofsecond(mdl.starttime().secsTo(mdl.endtime()));
     mdl.setDurationofminute(mdl.durationofsecond()/60);
 
     bool res=  bs.Insert(mdl);
@@ -65,8 +65,8 @@ void FrmDBTest::on_btnDailyTimeupdate_clicked()
     QTime stime(10,23,0);
     QTime etime(11,1,2);
     mdl.setStarttime(QDateTime(dt,stime));
-    mdl.setEnddate(QDateTime(dt,etime));
-    int r =mdl.starttime().secsTo(mdl.enddate());
+    mdl.setEndTime(QDateTime(dt,etime));
+    int r =mdl.starttime().secsTo(mdl.endtime());
     mdl.setDurationofsecond(r);
     mdl.setDurationofminute(r/60);
 

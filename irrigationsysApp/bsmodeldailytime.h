@@ -19,6 +19,7 @@ public:
     bool Insert(ModelDailyTime value);
     bool RemoveAll ();
     bool RemovebyId (int id);
+    QList<ModelDailyTime> FillDatabyCode(int code);
 private:
 
 };

@@ -1,11 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDesktopWidget>
-#include <QDebug>
-#include <deviceprocess.h>
 
-QList<ModelDeviceinfo> _Deviceinfo;
-DeviceProcess _deviceProcess1;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -22,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     DataHelper::getInstance();
     _maintimer =new QTimer();
     MessageWatcher::GetInstance();
+
     connect(_maintimer,SIGNAL(timeout()),this,SLOT(timeoutMaintimer()));
     connect(MessageWatcher::GetInstance(),SIGNAL(MessageCMDReceived(QString)),this,SLOT(onMessageCMDReceived(QString)));
     connect(MessageWatcher::GetInstance(),SIGNAL(DailytimeDataReceived(int,QDateTime,int,int,bool)),this,SLOT(onDailytimeDataReceived(int,QDateTime,int,int,bool)));
@@ -29,11 +26,19 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(MessageWatcher::GetInstance(),SIGNAL(SchedulemodeDataReceived(int,int,bool)),this,SLOT(onSchedulemodeDataReceived(int,int,bool)));
     connect(MessageWatcher::GetInstance(),SIGNAL(DeviceEnableDataReceived(int,int)),this,SLOT(onDeviceEnableDataReceived(int,int)));
     connect(MessageWatcher::GetInstance(),SIGNAL(CustomtimeDataReceived(int,QDateTime,int,int,bool)),this,SLOT(onCustomtimeDataReceived(int,QDateTime,int,int,bool)));
-
-    _maintimer->start(1000);
+    connect(MessageWatcher::GetInstance(),SIGNAL(RefreshData()),this,SLOT(onRefreshData()));
+    // _maintimer->start(1000);
     loaddata();
     //---------------
-    _deviceProcess1.deviceCheck(1);
+    _deviceProcess1=new DeviceProcess();
+    _deviceProcess2=new DeviceProcess();
+    _deviceProcess3=new DeviceProcess();
+    _deviceProcess4=new DeviceProcess();
+
+    _deviceProcess1->deviceCheck(1);
+    _deviceProcess2->deviceCheck(2);
+    _deviceProcess3->deviceCheck(3);
+    _deviceProcess4->deviceCheck(4);
 }
 
 MainWindow::~MainWindow()
@@ -57,9 +62,6 @@ void MainWindow::on_btnClose_clicked()
 void MainWindow::timeoutMaintimer()
 {
     _maintimer->stop();
-
-
-
 
     _maintimer->start(1000);
 
@@ -134,7 +136,7 @@ void MainWindow::onDailytimeDataReceived(int devicecode, QDateTime startdatetime
         sec = min*60;
     }
 
-    model.setEnddate(startdatetime.addSecs(sec));
+    model.setEndTime(startdatetime.addSecs(sec));
     model.setDurationofsecond(sec);
     model.setDurationofminute(min);
     model.setSmsalert(issmsalert);
@@ -186,7 +188,7 @@ void MainWindow::onCustomtimeDataReceived(int devicecode, QDateTime startdatetim
         sec = min*60;
     }
 
-    model.setEnddate(startdatetime.addSecs(sec));
+    model.setEndTime(startdatetime.addSecs(sec));
     model.setDurationofsecond(sec);
     model.setDurationofminute(min);
     model.setSmsalert(issmsalert);
@@ -228,4 +230,9 @@ void MainWindow::onDeviceEnableDataReceived(int devicenumber, int enablestatus)
         break;
     }
     _Deviceinfo=_bsDeviceinfo.FillData();
+}
+
+void MainWindow::onRefreshData()
+{
+    loaddata();
 }

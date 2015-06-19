@@ -11,7 +11,7 @@ ModelCustomTime BsCustomTime::fromSqlQuery(QSqlQuery query)
     mdl.setId(query.value(query.record().indexOf("id")).toInt());
     mdl.setDevicecode(query.value(query.record().indexOf("devicecode")).toInt());
     mdl.setStarttime(query.value(query.record().indexOf("starttime")).toDateTime());
-    mdl.setEnddate(query.value(query.record().indexOf("endtime")).toDateTime());
+    mdl.setEndTime(query.value(query.record().indexOf("endtime")).toDateTime());
     mdl.setDurationofsecond(query.value(query.record().indexOf("durationofsecond")).toInt());
     mdl.setDurationofminute(query.value(query.record().indexOf("durationofminute")).toInt());
     mdl.setSmsalert(query.value(query.record().indexOf("smsalert")).toBool());
@@ -63,7 +63,7 @@ bool BsCustomTime::Update(ModelCustomTime value)
     QMap<QString,QVariant> m;
     m.insert(":devicecode",value.devicecode());
     m.insert(":starttime",value.starttime());
-    m.insert(":endtime",value.enddate());
+    m.insert(":endtime",value.endtime());
     m.insert(":durationofsecond",value.durationofsecond());
     m.insert(":durationofminute",value.durationofminute());
     m.insert(":smsalert",value.smsalert());
@@ -78,7 +78,7 @@ bool BsCustomTime::Insert(ModelCustomTime value)
     QMap<QString,QVariant> m;
     m.insert(":devicecode",value.devicecode());
     m.insert(":starttime",value.starttime());
-    m.insert(":endtime",value.enddate());
+    m.insert(":endtime",value.endtime());
     m.insert(":durationofsecond",value.durationofsecond());
     m.insert(":durationofminute",value.durationofminute());
     m.insert(":smsalert",value.smsalert());

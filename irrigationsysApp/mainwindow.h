@@ -13,6 +13,9 @@
 #include <bscustomtime.h>
 #include <bsweeklytime.h>
 #include <bsmodeldailytime.h>
+#include <QDesktopWidget>
+#include <QDebug>
+#include <deviceprocess.h>
 
 namespace Ui {
 class MainWindow;
@@ -39,6 +42,7 @@ private slots:
     void onCustomtimeDataReceived(int devicecode,QDateTime startdatetime,int durationtime,int durationtype,bool issmsalert);
     void onSchedulemodeDataReceived(int devicecode,int schmode,bool issmsalertActive);
     void onDeviceEnableDataReceived(int devicecode,int enablestatus);
+    void onRefreshData();
 private:
     Ui::MainWindow *ui;
     GsmReader *_GsmReader;
@@ -53,6 +57,13 @@ private:
     BsCustomTime _bsCustomTime;
     BsWeeklytime _BsWeeklytime;
     BsModelDailyTime _BsModelDailyTime;
+
+
+    QList<ModelDeviceinfo> _Deviceinfo;
+    DeviceProcess *_deviceProcess1;
+    DeviceProcess *_deviceProcess2;
+    DeviceProcess *_deviceProcess3;
+    DeviceProcess *_deviceProcess4;
 
 
 

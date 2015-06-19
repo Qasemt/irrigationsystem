@@ -12,13 +12,27 @@ ModelWeeklyTime BsWeeklytime::fromSqlQuery(QSqlQuery query)
     mdl.setDayindex(query.value(query.record().indexOf("dayindex")).toInt());
     mdl.setDevicecode(query.value(query.record().indexOf("devicecode")).toInt());
     mdl.setStarttime(query.value(query.record().indexOf("starttime")).toDateTime());
-    mdl.setEndTime(query.value(query.record().indexOf("enddate")).toDateTime());
+    mdl.setEndTime(query.value(query.record().indexOf("endtime")).toDateTime());
     mdl.setDurationofsecond(query.value(query.record().indexOf("durationofsecond")).toInt());
     mdl.setDurationofminute(query.value(query.record().indexOf("durationofminute")).toInt());
     mdl.setSmsalert(query.value(query.record().indexOf("smsalert")).toBool());
 
     return mdl;
 }
+
+QList<ModelWeeklyTime> BsWeeklytime::FillDatabyCode(int code)
+{
+    QSqlQuery   query;
+    QList<ModelWeeklyTime> tmplist;
+    query=  baseBusiness::FillData("*",QString("devicecode=%1").arg(QString::number(code)));
+    while (query.next())
+    {
+        ModelWeeklyTime md= fromSqlQuery(query);
+        tmplist.append(md);
+    }
+    return tmplist;
+}
+
 
 QList<ModelWeeklyTime> BsWeeklytime::FillData()
 {
@@ -42,7 +56,7 @@ bool BsWeeklytime::Update(ModelWeeklyTime value)
     m.insert(":devicecode",value.devicecode());
     m.insert(":dayindex",value.dayindex());
     m.insert(":starttime",value.starttime());
-    m.insert(":enddate",value.endtime());
+    m.insert(":endtime",value.endtime());
     m.insert(":durationofsecond",value.durationofsecond());
     m.insert(":durationofminute",value.durationofminute());
     m.insert(":smsalert",value.smsalert());
