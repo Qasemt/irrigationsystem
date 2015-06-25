@@ -14,6 +14,7 @@ private:
     int _durationofsecond;
     int _durationofminute;
     bool _smsalert;
+    bool _isTaskActive;
 public:
     ModelWeeklyTime();
     int id() const;
@@ -39,6 +40,9 @@ public:
 
     bool smsalert() const;
     void setSmsalert(bool smsalert);
+
+    bool isTaskActive() const;
+    void setIsTaskActive(bool isTaskActive);
 
 private:
 };

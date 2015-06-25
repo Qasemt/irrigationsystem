@@ -13,9 +13,10 @@ private:
     int _durationofsecond;
     int _durationofminute;
     bool _smsalert;
+    bool _isTaskActive;
 
 public:
-     ModelCustomTime();
+    ModelCustomTime();
     int id() const;
     void setId(int id);
     int devicecode() const;
@@ -32,6 +33,8 @@ public:
     void setDurationofminute(int durationofminute);
     bool smsalert() const;
     void setSmsalert(bool smsalert);
+    bool isTaskActive() const;
+    void setIsTaskActive(bool isTaskActive);
 };
 
 #endif // MODELCUSTOMTIME_H

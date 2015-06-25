@@ -30,6 +30,7 @@ private:
     BsWeeklytime _BsWeeklytime;
     int _Devicecode;
 
+    bool istimebetweenTimeofday(QDateTime time, QDateTime startTime, QDateTime endTime);
 public:
     explicit DeviceProcess(QObject *parent = 0);
 void deviceCheck(int deviceCode);
@@ -38,11 +39,14 @@ void LoadData();
 void ProcCustomtime();
 void ProcDilytime();
 void ProcWeeklytime();
+bool isTimeBetween(QDateTime time, QDateTime startTime, QDateTime endTime);
+
+
 signals:
 
 public slots:
- void timeoutMaintimer();
- void onRefreshData();
+void timeoutMaintimer();
+void onRefreshData();
 
 
 };

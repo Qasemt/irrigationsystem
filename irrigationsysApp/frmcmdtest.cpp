@@ -32,10 +32,11 @@ void FrmCMDTest::on_btnChangeSchMode_clicked()
     if(ui->rdbCustom->isChecked())
         schmodeval=3;
 
-    QString device="1";
-  //  QString cmd =QString("$cmd$2@%1,%2,%3@").arg(device,QString::number(schmodeval),QString::number(ui->ckbsmsalret->isChecked()));
+    QString device=ui->txtdeviceinfo->text();
+    QString cmd =QString("$cmd$2@%1,%2,%3@").arg(device,QString::number(schmodeval),QString::number(ui->ckbsmsalret->isChecked()));
 
-        QString	  cmd ="$cmd$2@1,1,0;2,1,0@";
+    // multi cmd ->
+    //    QString	  cmd ="$cmd$2@1,1,0;2,1,0@";
 
     MessageWatcher::GetInstance()->FireMessageCMDReceived(cmd);
 }
@@ -54,13 +55,13 @@ void FrmCMDTest::on_btnDeviceEnable_clicked()
 
 void FrmCMDTest::on_btndialyTime_clicked()
 {
-     MessageWatcher::GetInstance()->FireMessageCMDReceived(QString("$cmd$3@%1,10:12,33m,1@").arg(ui->txtdeviceinfo->text()));
+    MessageWatcher::GetInstance()->FireMessageCMDReceived(QString("$cmd$3@%1,10:12,33m,1@").arg(ui->txtdeviceinfo->text()));
 }
 
 void FrmCMDTest::on_btnweeklytime_clicked()
 {
-   // MessageWatcher::GetInstance()->FireMessageCMDReceived(QString("$cmd$4@%1,7,10:12,33m,1@").arg(ui->txtdeviceinfo->text()));
-     MessageWatcher::GetInstance()->FireMessageCMDReceived(QString("$cmd$4@%1,7,10:12,33m,1@").arg(ui->txtdeviceinfo->text()));
+    // MessageWatcher::GetInstance()->FireMessageCMDReceived(QString("$cmd$4@%1,7,10:12,33m,1@").arg(ui->txtdeviceinfo->text()));
+    MessageWatcher::GetInstance()->FireMessageCMDReceived(QString("$cmd$4@%1,7,10:12,33m,1@").arg(ui->txtdeviceinfo->text()));
 }
 
 

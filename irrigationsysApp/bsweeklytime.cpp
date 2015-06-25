@@ -16,7 +16,7 @@ ModelWeeklyTime BsWeeklytime::fromSqlQuery(QSqlQuery query)
     mdl.setDurationofsecond(query.value(query.record().indexOf("durationofsecond")).toInt());
     mdl.setDurationofminute(query.value(query.record().indexOf("durationofminute")).toInt());
     mdl.setSmsalert(query.value(query.record().indexOf("smsalert")).toBool());
-
+    mdl.setIsTaskActive(query.value(query.record().indexOf("istaskactive")).toBool());
     return mdl;
 }
 
@@ -60,7 +60,7 @@ bool BsWeeklytime::Update(ModelWeeklyTime value)
     m.insert(":durationofsecond",value.durationofsecond());
     m.insert(":durationofminute",value.durationofminute());
     m.insert(":smsalert",value.smsalert());
-
+    m.insert(":istaskactive",value.isTaskActive());
     QString where = QString("id=%1").arg(value.id());
     bool result= baseBusiness::Update(m,where);
     return result;
@@ -76,6 +76,7 @@ bool BsWeeklytime::Insert(ModelWeeklyTime value)
     m.insert(":durationofsecond",value.durationofsecond());
     m.insert(":durationofminute",value.durationofminute());
     m.insert(":smsalert",value.smsalert());
+    m.insert(":istaskactive",value.isTaskActive());
     bool result=      baseBusiness::Insert(m);
     return result;
 }

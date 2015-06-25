@@ -80,6 +80,17 @@ void ModelCustomTime::setSmsalert(bool smsalert)
 {
     _smsalert = smsalert;
 }
+
+bool ModelCustomTime::isTaskActive() const
+{
+    return _isTaskActive;
+}
+
+void ModelCustomTime::setIsTaskActive(bool isTaskActive)
+{
+    _isTaskActive = isTaskActive;
+}
+
 ModelCustomTime::ModelCustomTime()
 {
     

@@ -81,6 +81,16 @@ void ModelWeeklyTime::setSmsalert(bool smsalert)
     _smsalert = smsalert;
 }
 
+
+bool ModelWeeklyTime::isTaskActive() const
+{
+    return _isTaskActive;
+}
+
+void ModelWeeklyTime::setIsTaskActive(bool isTaskActive)
+{
+    _isTaskActive = isTaskActive;
+}
 ModelWeeklyTime::ModelWeeklyTime()
 {
 

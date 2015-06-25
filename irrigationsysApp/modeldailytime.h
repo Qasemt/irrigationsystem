@@ -12,6 +12,7 @@ public:
     int _durationofsecond;
     int _durationofminute;
     bool _smsalert;
+    bool _isTaskActive;
 
     int id() const;
     void setId(int id);
@@ -27,6 +28,8 @@ public:
     void setDurationofminute(int durationofminute);
     bool smsalert() const;
     void setSmsalert(bool smsalert);
+    bool isTaskActive() const;
+    void setIsTaskActive(bool isTaskActive);
 };
 
 #endif // MODELDAILYTIME_H

@@ -3,6 +3,16 @@
 ModelDailyTime::ModelDailyTime()
 {
 }
+bool ModelDailyTime::isTaskActive() const
+{
+    return _isTaskActive;
+}
+
+void ModelDailyTime::setIsTaskActive(bool isTaskActive)
+{
+    _isTaskActive = isTaskActive;
+}
+
 bool ModelDailyTime::smsalert() const
 {
     return _smsalert;

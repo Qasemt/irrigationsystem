@@ -1,6 +1,5 @@
 #include "deviceprocess.h"
 
-
 DeviceProcess::DeviceProcess(QObject *parent) :
     QObject(parent)
 {
@@ -42,7 +41,7 @@ void DeviceProcess::LoadData()
     if( _ModelDeviceinfo.deviceenable())
     {
         qDebug()<<QString("Device [%1] enable  ").arg(QString::number(_ModelDeviceinfo.code()));
-        if(_maintimer->isActive())
+        if(_maintimer->isActive()==false)
             _maintimer->start(1000);
     }else{
         qDebug()<<QString("Device [%1] disable  ").arg(QString::number(_ModelDeviceinfo.code()));
@@ -78,22 +77,29 @@ void DeviceProcess::onRefreshData()
 void DeviceProcess::ProcCustomtime()
 {
     QDateTime now = QDateTime::currentDateTime();
-    foreach (ModelCustomTime model, _ModelCustomTimes) {
+    for (int i = 0; i < _ModelCustomTimes.length(); ++i) {
+        ModelCustomTime model=_ModelCustomTimes[i];
+
 
         // qDebug()<<"sss----"<<now<<"---f---"<<model.starttime();
-        if( _ModelDeviceinfo.powerstatus()==false && now>model.starttime() && now<model.endtime())
+        if( _ModelDeviceinfo.powerstatus()==false && model.isTaskActive()==false && isTimeBetween(now,model.starttime(),model.endtime()))
         {
             _ModelDeviceinfo.setPowerstatus(true);
             _bsDeviceinfo.Update(_ModelDeviceinfo);
+            _ModelCustomTimes[i].setIsTaskActive(true);
+            _BsCustomTime.Update( _ModelCustomTimes[i]);
             qDebug()<<now<<"process custom time started"<< model.starttime().toString();
         }
+        else
+            if(_ModelDeviceinfo.powerstatus()==true && model.isTaskActive() &&  isTimeBetween(now,model.starttime(),model.endtime())==false)
+            {
+                _ModelDeviceinfo.setPowerstatus(false);
+                _bsDeviceinfo.Update(_ModelDeviceinfo);
 
-        if(_ModelDeviceinfo.powerstatus()==true && now >model.endtime()  )
-        {
-            _ModelDeviceinfo.setPowerstatus(false);
-            _bsDeviceinfo.Update(_ModelDeviceinfo);
-            qDebug()<<now<<"process custom time ended"<< model.endtime().toString();
-        }
+                _ModelCustomTimes[i].setIsTaskActive(false);
+                _BsCustomTime.Update( _ModelCustomTimes[i]);
+                qDebug()<<now<<"process custom time ended"<< model.endtime().toString();
+            }
 
     }
 
@@ -102,26 +108,60 @@ void DeviceProcess::ProcCustomtime()
 void DeviceProcess::ProcDilytime()
 {
     QDateTime now = QDateTime::currentDateTime();
-    foreach (ModelDailyTime model, _ModelDailyTimes) {
+    for (int i = 0; i < _ModelDailyTimes.length(); ++i) {
 
+        ModelDailyTime model =_ModelDailyTimes[i];
         // qDebug()<<"sss----"<<now<<"---f---"<<model.starttime();
-        if( _ModelDeviceinfo.powerstatus()==false && now>model.starttime() && now<model.endtime())
+        if( _ModelDeviceinfo.powerstatus()==false && model.isTaskActive()==false && istimebetweenTimeofday(now,model.starttime(),model.endtime()))
         {
             _ModelDeviceinfo.setPowerstatus(true);
             _bsDeviceinfo.Update(_ModelDeviceinfo);
+            _ModelDailyTimes[i].setIsTaskActive(true);
+            _BsModelDailyTime.Update( _ModelDailyTimes[i]);
             qDebug()<<now<<"process dialy time started"<< model.starttime().toString();
         }
+        else
+            if(_ModelDeviceinfo.powerstatus()==true && model.isTaskActive() &&  istimebetweenTimeofday(now,model.starttime(),model.endtime())==false)
+            {
+                _ModelDeviceinfo.setPowerstatus(false);
+                _bsDeviceinfo.Update(_ModelDeviceinfo);
 
-        if(_ModelDeviceinfo.powerstatus()==true && now >model.endtime()  )
-        {
-            _ModelDeviceinfo.setPowerstatus(false);
-            _bsDeviceinfo.Update(_ModelDeviceinfo);
-            qDebug()<<now<<"process dialy time ended"<< model.endtime().toString();
-        }
+                _ModelDailyTimes[i].setIsTaskActive(false);
+                _BsModelDailyTime.Update( _ModelDailyTimes[i]);
+                qDebug()<<now<<"process dialy time ended"<< model.endtime().toString();
+            }
 
     }
 
 }
+bool DeviceProcess::isTimeBetween(QDateTime time ,QDateTime startTime,QDateTime endTime)
+{
+    if (endTime < startTime)
+    {
+        return time <= endTime ||
+                time >= startTime;
+    }
+    else
+    {
+        return time >= startTime &&
+                time <= endTime;
+    }
+    return false;
+}
+bool DeviceProcess::istimebetweenTimeofday(QDateTime time ,QDateTime startTime,QDateTime endTime)
+{
+    if (endTime.time() < startTime.time())
+    {
+        return time.time() <= endTime.time() ||  time.time() >= startTime.time();
+    }
+    else
+    {
+        return time.time() >= startTime.time() &&  time.time() <= endTime.time();
+    }
+    return false;
+}
+
+
 void DeviceProcess::ProcWeeklytime()
 {
     QDateTime now = QDateTime::currentDateTime();
@@ -133,22 +173,33 @@ void DeviceProcess::ProcWeeklytime()
     //    5 = "Friday"
     //    6 = "Saturday"
     //    7 = "Sunday"
-    foreach (ModelWeeklyTime model, _ModelWeeklyTimes) {
+    //  foreach (ModelWeeklyTime model, _ModelWeeklyTimes) {
+
+    for (int i = 0; i < _ModelWeeklyTimes.length(); ++i) {
+
+        ModelWeeklyTime model =_ModelWeeklyTimes[i];
 
         // qDebug()<<"sss----"<<now<<"---f---"<<model.starttime();
-        if( _ModelDeviceinfo.powerstatus()==false && model.dayindex()== dayofweek && now>model.starttime() && now<model.endtime())
+        if( _ModelDeviceinfo.powerstatus()==false && model.dayindex()== dayofweek && model.isTaskActive()==false && istimebetweenTimeofday(now,model.starttime(),model.endtime()))
         {
             _ModelDeviceinfo.setPowerstatus(true);
             _bsDeviceinfo.Update(_ModelDeviceinfo);
+
+            _ModelWeeklyTimes[i].setIsTaskActive(true);
+            _BsWeeklytime.Update( _ModelWeeklyTimes[i]);
             qDebug()<<now<<"process custom time started"<< model.starttime().toString();
         }
+        else
+            if(_ModelDeviceinfo.powerstatus()==true && model.isTaskActive() &&  istimebetweenTimeofday(now,model.starttime(),model.endtime())==false)
+            {
+                _ModelDeviceinfo.setPowerstatus(false);
+                _bsDeviceinfo.Update(_ModelDeviceinfo);
 
-        if(_ModelDeviceinfo.powerstatus()==true && model.dayindex()== dayofweek &&  now >model.endtime()  )
-        {
-            _ModelDeviceinfo.setPowerstatus(false);
-            _bsDeviceinfo.Update(_ModelDeviceinfo);
-            qDebug()<<now<<"process custom time ended"<< model.endtime().toString();
-        }
+                _ModelWeeklyTimes[i].setIsTaskActive(false);
+                _BsWeeklytime.Update( _ModelWeeklyTimes[i]);
+
+                qDebug()<<now<<"process custom time ended"<< model.endtime().toString();
+            }
 
     }
 
