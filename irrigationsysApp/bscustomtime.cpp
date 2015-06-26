@@ -72,6 +72,13 @@ bool BsCustomTime::Update(ModelCustomTime value)
     bool result=    baseBusiness::Update(m,where);
     return result;
 }
+bool BsCustomTime::ResetTask()
+{
+    QMap<QString,QVariant> m;
+    m.insert(":istaskactive",false);
+    bool result=    baseBusiness::Update(m,"");
+    return result;
+}
 
 bool BsCustomTime::Insert(ModelCustomTime value)
 {

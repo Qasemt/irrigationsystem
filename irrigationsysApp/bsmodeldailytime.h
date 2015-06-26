@@ -20,6 +20,7 @@ public:
     bool RemoveAll ();
     bool RemovebyId (int id);
     QList<ModelDailyTime> FillDatabyCode(int code);
+    bool ResetTask();
 private:
 
 };

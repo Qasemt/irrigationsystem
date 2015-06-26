@@ -19,7 +19,7 @@ ModelDeviceinfo BsDeviceinfo::fromSqlQuery(QSqlQuery query)
 ModelDeviceinfo BsDeviceinfo::FillbyCode(int code)
 {
     QSqlQuery   query;
-   ModelDeviceinfo tmp;
+    ModelDeviceinfo tmp;
     query=  baseBusiness::FillData("*",QString("code=%1").arg(QString::number(code)));
     while (query.next())
     {
@@ -60,6 +60,7 @@ bool BsDeviceinfo::Update(ModelDeviceinfo value)
     bool result= baseBusiness::Update(m,where);
     return result;
 }
+
 bool BsDeviceinfo::UpdateDeviceEnableVal(int devicenumber,bool enableval)
 {
     QMap<QString,QVariant> m;
@@ -91,6 +92,13 @@ bool BsDeviceinfo::UpdatePowerStatus(int devicenumber,bool pwrStatus)
     return result;
 }
 
+bool BsDeviceinfo::SetPowerOffAllDevice()
+{
+    QMap<QString,QVariant> m;
+    m.insert(":powerstatus",false);
+    bool result= baseBusiness::Update(m,"");
+    return result;
+}
 bool BsDeviceinfo::IsPowerOn(int devicenumber)
 {
     QString where = QString("code=%1").arg(devicenumber);

@@ -43,6 +43,7 @@ private slots:
     void onSchedulemodeDataReceived(int devicecode,int schmode,bool issmsalertActive);
     void onDeviceEnableDataReceived(int devicecode,int enablestatus);
     void onRefreshData();
+    void onDeviceChangeState(int devicenumber);
 private:
     Ui::MainWindow *ui;
     GsmReader *_GsmReader;

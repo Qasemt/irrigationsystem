@@ -66,6 +66,14 @@ bool BsModelDailyTime::Update(ModelDailyTime value)
     return result;
 }
 
+bool BsModelDailyTime::ResetTask()
+{
+    QMap<QString,QVariant> m;
+    m.insert(":istaskactive",false);
+    bool result=    baseBusiness::Update(m,"");
+    return result;
+}
+
 bool BsModelDailyTime::Insert(ModelDailyTime value)
 {
 

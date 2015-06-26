@@ -48,7 +48,10 @@ private:
 
 public:
     explicit    MessageWatcher(QObject *parent = 0);
-
+    void FireChangeState(int devicenumber)
+    {
+        emit DeviceChangeState(devicenumber);
+    }
     static MessageWatcher* GetInstance()
     {
         int adr = (int)_instance;
@@ -402,6 +405,7 @@ signals:
     void SchedulemodeDataReceived(int devicenumber,int schmode,bool issmsalertActive);
     void DeviceEnableDataReceived(int devicenumber,int enablestatus);
     void RefreshData();
+    void DeviceChangeState(int devicenumber);
 };
 
 #endif // MESSAGEWATCHER_H

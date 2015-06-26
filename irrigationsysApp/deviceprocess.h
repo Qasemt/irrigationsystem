@@ -44,6 +44,7 @@ bool isTimeBetween(QDateTime time, QDateTime startTime, QDateTime endTime);
 
 signals:
 
+
 public slots:
 void timeoutMaintimer();
 void onRefreshData();

@@ -66,6 +66,14 @@ bool BsWeeklytime::Update(ModelWeeklyTime value)
     return result;
 }
 
+bool BsWeeklytime::ResetTask()
+{
+    QMap<QString,QVariant> m;
+    m.insert(":istaskactive",false);
+    bool result=    baseBusiness::Update(m,"");
+    return result;
+}
+
 bool BsWeeklytime::Insert(ModelWeeklyTime value)
 {
     QMap<QString,QVariant> m;

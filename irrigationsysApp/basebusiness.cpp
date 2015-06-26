@@ -56,8 +56,13 @@ bool baseBusiness::Update( QMap<QString, QVariant> params, QString whereparams)
 
             fields=   fields.remove(fields.count()-1,1);
             QSqlQuery   query = QSqlQuery(DataHelper::getInstance()->getdb());
+
+            QString valwhereparam = "";
+            if(whereparams.length()>0)
+                valwhereparam=" where "+whereparams;
+
             QString queryStr="UPDATE "+ _TableName +" SET "
-                    +fields +" where "+whereparams;
+                    +fields +valwhereparam;
 
             //  qDebug()<<queryStr;
 
@@ -113,8 +118,8 @@ bool baseBusiness::Insert( QMap<QString, QVariant> params)
             pfields=   pfields.remove(pfields.count()-1,1);
             QString querystr= "INSERT INTO "+ _TableName +
                     " ("+ pfields +")"
-                                  " VALUES ("+ pkey + ")";
-         //   qDebug()<<querystr;
+                    " VALUES ("+ pkey + ")";
+            //   qDebug()<<querystr;
 
             query.prepare(querystr);
 

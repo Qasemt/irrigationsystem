@@ -23,6 +23,7 @@ public:
     bool IsPowerOn(int devicenumber);
     bool UpdatePowerStatus(int devicenumber, bool pwrStatus);
     ModelDeviceinfo FillbyCode(int code);
+    bool SetPowerOffAllDevice();
 };
 
 #endif // BSDEVICEINFO_H

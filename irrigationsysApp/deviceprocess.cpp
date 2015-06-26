@@ -89,6 +89,7 @@ void DeviceProcess::ProcCustomtime()
             _ModelCustomTimes[i].setIsTaskActive(true);
             _BsCustomTime.Update( _ModelCustomTimes[i]);
             qDebug()<<now<<"process custom time started"<< model.starttime().toString();
+              MessageWatcher::GetInstance()->FireChangeState(_Devicecode);
         }
         else
             if(_ModelDeviceinfo.powerstatus()==true && model.isTaskActive() &&  isTimeBetween(now,model.starttime(),model.endtime())==false)
@@ -99,6 +100,7 @@ void DeviceProcess::ProcCustomtime()
                 _ModelCustomTimes[i].setIsTaskActive(false);
                 _BsCustomTime.Update( _ModelCustomTimes[i]);
                 qDebug()<<now<<"process custom time ended"<< model.endtime().toString();
+                   MessageWatcher::GetInstance()->FireChangeState(_Devicecode);
             }
 
     }
@@ -119,6 +121,7 @@ void DeviceProcess::ProcDilytime()
             _ModelDailyTimes[i].setIsTaskActive(true);
             _BsModelDailyTime.Update( _ModelDailyTimes[i]);
             qDebug()<<now<<"process dialy time started"<< model.starttime().toString();
+              MessageWatcher::GetInstance()->FireChangeState(_Devicecode);
         }
         else
             if(_ModelDeviceinfo.powerstatus()==true && model.isTaskActive() &&  istimebetweenTimeofday(now,model.starttime(),model.endtime())==false)
@@ -129,6 +132,7 @@ void DeviceProcess::ProcDilytime()
                 _ModelDailyTimes[i].setIsTaskActive(false);
                 _BsModelDailyTime.Update( _ModelDailyTimes[i]);
                 qDebug()<<now<<"process dialy time ended"<< model.endtime().toString();
+                MessageWatcher::GetInstance()->FireChangeState(_Devicecode);
             }
 
     }
@@ -188,6 +192,7 @@ void DeviceProcess::ProcWeeklytime()
             _ModelWeeklyTimes[i].setIsTaskActive(true);
             _BsWeeklytime.Update( _ModelWeeklyTimes[i]);
             qDebug()<<now<<"process custom time started"<< model.starttime().toString();
+             MessageWatcher::GetInstance()->FireChangeState(_Devicecode);
         }
         else
             if(_ModelDeviceinfo.powerstatus()==true && model.isTaskActive() &&  istimebetweenTimeofday(now,model.starttime(),model.endtime())==false)
@@ -199,6 +204,7 @@ void DeviceProcess::ProcWeeklytime()
                 _BsWeeklytime.Update( _ModelWeeklyTimes[i]);
 
                 qDebug()<<now<<"process custom time ended"<< model.endtime().toString();
+                  MessageWatcher::GetInstance()->FireChangeState(_Devicecode);
             }
 
     }

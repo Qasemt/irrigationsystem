@@ -18,6 +18,7 @@ public:
     ModelCustomTime FillbyCode(int code);
 
     QList<ModelCustomTime> FillDatabyCode(int code);
+    bool ResetTask();
 };
 
 #endif // BSCUSTOMTIME_H

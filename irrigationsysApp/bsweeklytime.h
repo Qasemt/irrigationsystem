@@ -16,6 +16,7 @@ public:
     bool RemoveAll ();
     bool RemovebyId (int id);
     QList<ModelWeeklyTime> FillDatabyCode(int code);
+    bool ResetTask();
 };
 
 #endif // BSWEEKLYTIME_H

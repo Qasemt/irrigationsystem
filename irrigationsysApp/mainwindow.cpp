@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
+#include <imagedelegate.h>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -27,7 +27,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(MessageWatcher::GetInstance(),SIGNAL(DeviceEnableDataReceived(int,int)),this,SLOT(onDeviceEnableDataReceived(int,int)));
     connect(MessageWatcher::GetInstance(),SIGNAL(CustomtimeDataReceived(int,QDateTime,int,int,bool)),this,SLOT(onCustomtimeDataReceived(int,QDateTime,int,int,bool)));
     connect(MessageWatcher::GetInstance(),SIGNAL(RefreshData()),this,SLOT(onRefreshData()));
+    connect(MessageWatcher::GetInstance(),SIGNAL(DeviceChangeState(int)),this,SLOT(onDeviceChangeState(int)));
     // _maintimer->start(1000);
+    _bsCustomTime.ResetTask();
+    _BsModelDailyTime.ResetTask();
+    _BsWeeklytime.ResetTask();
+    _bsCustomTime.ResetTask();
+    _bsDeviceinfo.SetPowerOffAllDevice();
     loaddata();
     //---------------
     _deviceProcess1=new DeviceProcess();
@@ -39,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _deviceProcess2->deviceCheck(2);
     _deviceProcess3->deviceCheck(3);
     _deviceProcess4->deviceCheck(4);
+
 }
 
 MainWindow::~MainWindow()
@@ -73,13 +80,11 @@ void MainWindow::loaddata()
     _records = new QSqlQueryModel();
     _records->setQuery(_bsDeviceinfo.FillDatasqlmodel());
     //   qDebug()<< q.size();
-    /*  model->insertColumn(7);//icon user type
-       model->insertColumn(8);//icon ramz
-       model->insertColumn(9);//icon rfid
-       */
+     _records->insertColumn(6);//icon motor
 
 
-    //  model->setHeaderData(2,Qt::Horizontal,"Image",Qt::DisplayRole);
+
+     _records->setHeaderData(6,Qt::Horizontal,"Image",Qt::DisplayRole);
 
     /*   _records->setHeaderData(0, Qt::Horizontal, tr("code"));
        model->setHeaderData(1, Qt::Horizontal, tr("title"));
@@ -102,6 +107,7 @@ void MainWindow::loaddata()
     ui->tableView1->setModel(_records);
     ui->tableView1->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
     ui->tableView1->setShowGrid(true);
+    ui->tableView1->setItemDelegate(new ImageDelegate(this));
 
     _Deviceinfo=_bsDeviceinfo.FillData();
 
@@ -234,5 +240,11 @@ void MainWindow::onDeviceEnableDataReceived(int devicenumber, int enablestatus)
 
 void MainWindow::onRefreshData()
 {
+    loaddata();
+}
+
+void MainWindow::onDeviceChangeState(int devicenumber)
+{
+    qDebug()<<QString("Device [%1] Change State").arg(devicenumber);
     loaddata();
 }
