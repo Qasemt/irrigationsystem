@@ -7,6 +7,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+     // int  r, x=10, y=0;
+     // r=x/y;
+      //throw "hi...";
     this->setGeometry(0,0,this->width(),this->height());
     //Put the dialog in the screen center
     const QRect screen = QApplication::desktop()->screenGeometry();
@@ -45,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _deviceProcess2->deviceCheck(2);
     _deviceProcess3->deviceCheck(3);
     _deviceProcess4->deviceCheck(4);
+
 
 }
 
@@ -105,6 +109,11 @@ void MainWindow::loaddata()
     // qDebug()<<model->rowCount();
     //-------------------------
     ui->tableView1->setModel(_records);
+    QHeaderView *verticalHeader = ui->tableView1->verticalHeader();
+    verticalHeader->setResizeMode(QHeaderView::Fixed);
+    verticalHeader->setDefaultSectionSize(68);
+
+   // ui->tableView1->setVerticalHeader(verticalHeader);
     ui->tableView1->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
     ui->tableView1->setShowGrid(true);
     ui->tableView1->setItemDelegate(new ImageDelegate(this));

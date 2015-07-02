@@ -8,7 +8,7 @@ QT       += core gui extserialport sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG += extserialport
-
+ CONFIG += debug exceptions
 TARGET = irrigationsysApp
 TEMPLATE = app
 
@@ -37,7 +37,8 @@ SOURCES += main.cpp\
     messagewatcher.cpp \
     qdateconvertor.cpp \
     deviceprocess.cpp \
-    imagedelegate.cpp
+    imagedelegate.cpp \
+    myapplication.cpp
 
 HEADERS  += mainwindow.h \
     gsmreader.h \
@@ -63,7 +64,8 @@ HEADERS  += mainwindow.h \
     qdateconvertor.h \
     aenums.h \
     deviceprocess.h \
-    imagedelegate.h
+    imagedelegate.h \
+    myapplication.h
 
 FORMS    += mainwindow.ui \
     frmdbtest.ui \
@@ -72,3 +74,6 @@ FORMS    += mainwindow.ui \
 addFiles.sources =data.db3
 addFiles.path = /home/qasem/outapp/irrigationsystem/build-irrigationsysApp-desktoplinux4-Debug/
 DEPLOYMENT += addFiles
+
+RESOURCES += \
+    resourcefiles/res.qrc

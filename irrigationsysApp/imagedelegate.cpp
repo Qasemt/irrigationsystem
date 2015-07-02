@@ -25,9 +25,9 @@ void ImageDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
         if(data)
         {
             qDebug()<<"Icon On";
-            pm=QPixmap(":/Icons/images/administrator.png");
+            pm=QPixmap(":/images/images/fan_on.png");
         }else{
-            pm=QPixmap(":/Icons/images/user.png");
+            pm=QPixmap(":/images/images/fan_off.png");
               qDebug()<<"Icon Off";
         }
         //painter->drawPixmap(option.rect, pm);
@@ -35,7 +35,7 @@ void ImageDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
         int y = option.rect.y();
 
         pm.scaled(32, 32,Qt::KeepAspectRatio);
-        painter->drawPixmap(x,y,32,32, pm);
+        painter->drawPixmap(x,y,64,64, pm);
 
     }
 
