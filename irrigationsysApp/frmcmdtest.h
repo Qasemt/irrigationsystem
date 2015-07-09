@@ -26,6 +26,8 @@ private slots:
 
     void on_btnCMDcustomtime_clicked();
 
+    void on_btnSMSAccess_clicked();
+
 private:
     Ui::FrmCMDTest *ui;
 };

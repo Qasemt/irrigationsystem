@@ -19,7 +19,7 @@
      <x>10</x>
      <y>10</y>
      <width>238</width>
-     <height>196</height>
+     <height>229</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -45,6 +45,13 @@
      <widget class="QPushButton" name="btnDeviceEnable">
       <property name="text">
        <string>Device Enable Disable</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnSMSAccess">
+      <property name="text">
+       <string>SMS Access</string>
       </property>
      </widget>
     </item>

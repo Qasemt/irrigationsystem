@@ -44,6 +44,8 @@ private slots:
     void onDeviceEnableDataReceived(int devicecode,int enablestatus);
     void onRefreshData();
     void onDeviceChangeState(int devicenumber);
+     void onDeviceSMSStatusDataReceived(int devicenumber,int status);
+     void onQueryDeviceStatusDataReceived();
 private:
     Ui::MainWindow *ui;
     GsmReader *_GsmReader;

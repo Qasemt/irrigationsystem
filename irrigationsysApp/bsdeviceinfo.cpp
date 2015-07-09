@@ -71,6 +71,16 @@ bool BsDeviceinfo::UpdateDeviceEnableVal(int devicenumber,bool enableval)
     return result;
 }
 
+bool BsDeviceinfo::UpdateSMSDeviceEnableVal(int devicenumber,bool enableval)
+{
+    QMap<QString,QVariant> m;
+    m.insert(":code",devicenumber);
+    m.insert(":smsalertenable",enableval);
+    QString where = QString("code=%1").arg(devicenumber);
+    bool result= baseBusiness::Update(m,where);
+    return result;
+}
+
 bool BsDeviceinfo::UpdateScheduleMode(int devicenumber, int shmod, bool issendSMSAlert)
 {
     QMap<QString,QVariant> m;

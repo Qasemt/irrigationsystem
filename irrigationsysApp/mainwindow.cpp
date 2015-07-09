@@ -7,9 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-     // int  r, x=10, y=0;
-     // r=x/y;
-      //throw "hi...";
+
     this->setGeometry(0,0,this->width(),this->height());
     //Put the dialog in the screen center
     const QRect screen = QApplication::desktop()->screenGeometry();
@@ -31,6 +29,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(MessageWatcher::GetInstance(),SIGNAL(CustomtimeDataReceived(int,QDateTime,int,int,bool)),this,SLOT(onCustomtimeDataReceived(int,QDateTime,int,int,bool)));
     connect(MessageWatcher::GetInstance(),SIGNAL(RefreshData()),this,SLOT(onRefreshData()));
     connect(MessageWatcher::GetInstance(),SIGNAL(DeviceChangeState(int)),this,SLOT(onDeviceChangeState(int)));
+    connect(MessageWatcher::GetInstance(),SIGNAL(DeviceSMSStatusDataReceived(int,int)),this,SLOT(onDeviceSMSStatusDataReceived(int,int)));
+    connect(MessageWatcher::GetInstance(),SIGNAL(QueryDeviceStatusDataReceived()),this,SLOT(onQueryDeviceStatusDataReceived()));
+
     // _maintimer->start(1000);
     _bsCustomTime.ResetTask();
     _BsModelDailyTime.ResetTask();
@@ -84,11 +85,11 @@ void MainWindow::loaddata()
     _records = new QSqlQueryModel();
     _records->setQuery(_bsDeviceinfo.FillDatasqlmodel());
     //   qDebug()<< q.size();
-     _records->insertColumn(6);//icon motor
+    _records->insertColumn(6);//icon motor
 
 
 
-     _records->setHeaderData(6,Qt::Horizontal,"Image",Qt::DisplayRole);
+    _records->setHeaderData(6,Qt::Horizontal,"Image",Qt::DisplayRole);
 
     /*   _records->setHeaderData(0, Qt::Horizontal, tr("code"));
        model->setHeaderData(1, Qt::Horizontal, tr("title"));
@@ -113,7 +114,7 @@ void MainWindow::loaddata()
     verticalHeader->setResizeMode(QHeaderView::Fixed);
     verticalHeader->setDefaultSectionSize(68);
 
-   // ui->tableView1->setVerticalHeader(verticalHeader);
+    // ui->tableView1->setVerticalHeader(verticalHeader);
     ui->tableView1->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
     ui->tableView1->setShowGrid(true);
     ui->tableView1->setItemDelegate(new ImageDelegate(this));
@@ -256,4 +257,15 @@ void MainWindow::onDeviceChangeState(int devicenumber)
 {
     qDebug()<<QString("Device [%1] Change State").arg(devicenumber);
     loaddata();
+}
+
+void MainWindow::onDeviceSMSStatusDataReceived(int devicenumber, int status)
+{
+     qDebug()<<QString("Device [%1] sms  State [changed] ").arg(devicenumber);
+     _bsDeviceinfo.UpdateSMSDeviceEnableVal(devicenumber,status);
+}
+
+void MainWindow::onQueryDeviceStatusDataReceived()
+{
+       qDebug()<<QString("Do  Query Devices");
 }

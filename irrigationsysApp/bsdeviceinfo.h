@@ -24,6 +24,7 @@ public:
     bool UpdatePowerStatus(int devicenumber, bool pwrStatus);
     ModelDeviceinfo FillbyCode(int code);
     bool SetPowerOffAllDevice();
+    bool UpdateSMSDeviceEnableVal(int devicenumber, bool enableval);
 };
 
 #endif // BSDEVICEINFO_H

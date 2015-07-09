@@ -69,3 +69,15 @@ void FrmCMDTest::on_btnCMDcustomtime_clicked()
 {
     MessageWatcher::GetInstance()->FireMessageCMDReceived(QString("$cmd$5@%1,13930402,10:12,33m,1@").arg(ui->txtdeviceinfo->text()));
 }
+
+void FrmCMDTest::on_btnSMSAccess_clicked()
+{ if(ui->rdbDeviceenable->isChecked())
+    {
+        MessageWatcher::GetInstance()->FireMessageCMDReceived(QString("$cmd$6@%1,1@").arg(ui->txtdeviceinfo->text()));
+    }else
+        if(ui->rdbDevicedisbale->isChecked())
+        {
+            MessageWatcher::GetInstance()->FireMessageCMDReceived(QString("$cmd$6@%1,0@").arg(ui->txtdeviceinfo->text()));
+        }
+
+}
